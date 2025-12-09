@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Demo Assets</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 100%);
+            color: white;
+            margin: 0;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-center;
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        button {
+            background: #db2777;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 1rem;
+            width: 100%;
+        }
+        button:hover {
+            background: #be185d;
+            transform: scale(1.05);
+        }
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+        #status {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #e5e7eb;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #db2777;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>📦 Asset Downloader</h1>
+        <p>Click below to generate and download the <b>assets.zip</b> file containing all demo images.</p>
+        
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <button id="downloadBtn" onclick="downloadAssets()">Download assets.zip</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        // List of all images used in mockData.ts
+        const assets = [
+            // Global & Home
+            { url: 'https://picsum.photos/id/48/1200/600', path: 'assets/about/hero.jpg' },
+            { url: 'https://picsum.photos/id/180/800/600', path: 'assets/services/marketing-bg.jpg' },
+            { url: 'https://picsum.photos/id/250/800/600', path: 'assets/services/studio-bg.jpg' },
+            { url: 'https://picsum.photos/id/338/800/600', path: 'assets/services/influencer-bg.jpg' },
+            { url: 'https://picsum.photos/id/1031/800/600', path: 'assets/contact/map.jpg' },
+            
+            // Galleries
+            { url: 'https://picsum.photos/id/20/800/600', path: 'assets/services/gallery/marketing-1.jpg' },
+            { url: 'https://picsum.photos/id/119/800/600', path: 'assets/services/gallery/marketing-2.jpg' },
+            { url: 'https://picsum.photos/id/160/800/600', path: 'assets/services/gallery/marketing-3.jpg' },
+            { url: 'https://picsum.photos/id/250/400/600', path: 'assets/services/gallery/studio-1.jpg' },
+            { url: 'https://picsum.photos/id/435/400/300', path: 'assets/services/gallery/studio-2.jpg' },
+            { url: 'https://picsum.photos/id/334/400/300', path: 'assets/services/gallery/studio-3.jpg' },
+
+            // Influencer Profiles
+            { url: 'https://picsum.photos/id/64/300/300', path: 'assets/influencers/sarah/profile.jpg' },
+            { url: 'https://picsum.photos/id/91/300/300', path: 'assets/influencers/omar/profile.jpg' },
+            { url: 'https://picsum.photos/id/338/300/300', path: 'assets/influencers/layla/profile.jpg' },
+            { url: 'https://picsum.photos/id/447/300/300', path: 'assets/influencers/fahad/profile.jpg' },
+            { url: 'https://picsum.photos/id/342/300/300', path: 'assets/influencers/noura/profile.jpg' },
+
+            // Influencer Albums
+            { url: 'https://picsum.photos/id/129/600/600', path: 'assets/influencers/sarah/1.jpg' },
+            { url: 'https://picsum.photos/id/130/600/600', path: 'assets/influencers/sarah/2.jpg' },
+            { url: 'https://picsum.photos/id/131/600/600', path: 'assets/influencers/sarah/3.jpg' },
+            { url: 'https://picsum.photos/id/132/600/600', path: 'assets/influencers/sarah/4.jpg' },
+            
+            { url: 'https://picsum.photos/id/201/600/600', path: 'assets/influencers/omar/1.jpg' },
+            { url: 'https://picsum.photos/id/202/600/600', path: 'assets/influencers/omar/2.jpg' },
+            { url: 'https://picsum.photos/id/203/600/600', path: 'assets/influencers/omar/3.jpg' },
+
+            { url: 'https://picsum.photos/id/425/600/600', path: 'assets/influencers/layla/1.jpg' },
+            { url: 'https://picsum.photos/id/426/600/600', path: 'assets/influencers/layla/2.jpg' },
+            { url: 'https://picsum.photos/id/427/600/600', path: 'assets/influencers/layla/3.jpg' },
+
+            { url: 'https://picsum.photos/id/3/600/600', path: 'assets/influencers/fahad/1.jpg' },
+            { url: 'https://picsum.photos/id/4/600/600', path: 'assets/influencers/fahad/2.jpg' },
+
+            { url: 'https://picsum.photos/id/325/600/600', path: 'assets/influencers/noura/1.jpg' },
+            { url: 'https://picsum.photos/id/326/600/600', path: 'assets/influencers/noura/2.jpg' },
+        ];
+
+        async function downloadAssets() {
+            const btn = document.getElementById('downloadBtn');
+            const status = document.getElementById('status');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+
+            btn.disabled = true;
+            btn.innerText = 'Gathering Images...';
+            progressBar.style.display = 'block';
+            status.innerText = 'Starting download...';
+
+            const zip = new JSZip();
+            let completed = 0;
+            let failed = 0;
+
+            for (let i = 0; i < assets.length; i++) {
+                const asset = assets[i];
+                try {
+                    status.innerText = `Fetching: ${asset.path}...`;
+                    const response = await fetch(asset.url);
+                    if (!response.ok) throw new Error(`Failed to fetch ${asset.url}`);
+                    const blob = await response.blob();
+                    zip.file(asset.path, blob);
+                    completed++;
+                } catch (err) {
+                    console.error(err);
+                    failed++;
+                }
+                
+                // Update Progress
+                const percent = Math.round(((i + 1) / assets.length) * 100);
+                progressFill.style.width = `${percent}%`;
+            }
+
+            status.innerText = 'Compressing...';
+            btn.innerText = 'Zipping...';
+
+            zip.generateAsync({type:"blob"}).then(function(content) {
+                saveAs(content, "assets.zip");
+                btn.disabled = false;
+                btn.innerText = 'Download Again';
+                status.innerText = `Done! ${completed} files downloaded. ${failed > 0 ? failed + ' failed.' : ''}`;
+            });
+        }
+    </script>
+</body>
+</html>
+    
