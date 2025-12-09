@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
-import { InfluencerSize, InfluencerType, Gender } from '../types';
 import { GlassCard, Button } from '../components/ui/GlassComponents';
 import { Filter, Instagram, Twitter, Youtube, Video } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
