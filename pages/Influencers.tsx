@@ -1,27 +1,143 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
 import { InfluencerSize, InfluencerType, Gender } from '../types';
 import { GlassCard, Button } from '../components/ui/GlassComponents';
 import { Filter, Instagram, Twitter, Youtube, Video } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { API_BASE_URL } from '@/lib/apiConfig';
+
+interface ApiInfluencer {
+  id: number;
+  name: string;
+  bio: string;
+  phone: string;
+  email: string;
+  sex: string;
+  avatar: string;
+  category_size: {
+    id: number;
+    name: string;
+    range: string;
+  };
+  content_type: {
+    id: number;
+    name: string;
+  };
+  social_media_accounts: Array<{
+    id: number;
+    follower_count: number;
+    platform: {
+      id: number;
+      name: string;
+      icon: string;
+    };
+  }>;
+  total_followers: number;
+}
+
+interface LookupData {
+  sategory_sizes: Array<{ id: number; name: string; range: string }>;
+  content_types: Array<{ id: number; name: string }>;
+  sexs: Array<{ id: string; name: string }>;
+}
 
 const Influencers: React.FC = () => {
-  const { influencers, siteImages } = useData(); 
-  const [selectedSize, setSelectedSize] = useState<InfluencerSize | ''>('');
-  const [selectedType, setSelectedType] = useState<InfluencerType | ''>('');
-  const [selectedGender, setSelectedGender] = useState<Gender | ''>('');
+  const { siteImages } = useData(); 
+  const [influencers, setInfluencers] = useState<any[]>([]);
+  const [lookupData, setLookupData] = useState<LookupData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<string>('');
+  const [selectedGender, setSelectedGender] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { t, language } = useLanguage();
 
-  const filteredInfluencers = useMemo(() => {
-    return influencers.filter((inf) => {
-      const matchSize = selectedSize ? inf.size === selectedSize : true;
-      const matchType = selectedType ? inf.type === selectedType : true;
-      const matchGender = selectedGender ? inf.gender === selectedGender : true;
-      return matchSize && matchType && matchGender;
-    });
-  }, [selectedSize, selectedType, selectedGender, influencers]);
+  // Fetch lookups once on mount
+  useEffect(() => {
+    const fetchLookups = async () => {
+      try {
+        const lookupsRes = await axios.post(`${API_BASE_URL}/lookups`);
+        if (lookupsRes.data.status && lookupsRes.data.items) {
+          setLookupData(lookupsRes.data.items);
+        }
+      } catch (err) {
+        console.error('Error fetching lookups:', err);
+      }
+    };
+    
+    fetchLookups();
+  }, []);
+
+  // Helper function to format follower counts
+  const formatFollowers = (count: number): string => {
+    if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`;
+    if (count >= 1000) return `${(count / 1000).toFixed(1)}K`;
+    return count.toString();
+  };
+
+  // Fetch influencers when filters change
+  useEffect(() => {
+    const fetchInfluencers = async () => {
+      try {
+        setLoading(true);
+        
+        // Prepare form data with filters
+        const formData = new FormData();
+        formData.append('page_size', '10');
+        formData.append('page_number', '1');
+        
+        if (selectedType) {
+          formData.append('content_type_id', selectedType);
+        }
+        if (selectedSize) {
+          formData.append('category_size_id', selectedSize);
+        }
+        if (selectedGender) {
+          formData.append('sex', selectedGender);
+        }
+        
+        const influencersRes = await axios.post(`${API_BASE_URL}/influencers`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        
+        // Process influencers data
+        if (influencersRes.data.status && influencersRes.data.items.influencers) {
+          const transformedData = influencersRes.data.items.influencers.map((inf: ApiInfluencer) => ({
+            id: inf.id,
+            name_en: inf.name,
+            name_ar: inf.name,
+            profileImage: inf.avatar,
+            size: inf.category_size.name,
+            sizeId: inf.category_size.id,
+            type: inf.content_type.name,
+            typeId: inf.content_type.id,
+            gender: inf.sex,
+            socials: inf.social_media_accounts.map(account => ({
+              platform: account.platform.name.toLowerCase(),
+              followers: formatFollowers(account.follower_count),
+              icon: account.platform.icon
+            })),
+            totalFollowers: inf.total_followers
+          }));
+          setInfluencers(transformedData);
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching influencers:', err);
+        setError('Failed to load influencers. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInfluencers();
+  }, [selectedSize, selectedType, selectedGender]);
 
   const socialIconMap: Record<string, any> = {
     instagram: Instagram,
@@ -31,33 +147,32 @@ const Influencers: React.FC = () => {
     twitter: Twitter
   };
 
-  const getSizeLabel = (size: InfluencerSize) => {
-    switch (size) {
-      case InfluencerSize.NANO: return t('influencers_page.sizes.nano');
-      case InfluencerSize.MICRO: return t('influencers_page.sizes.micro');
-      case InfluencerSize.MACRO: return t('influencers_page.sizes.macro');
-      case InfluencerSize.MEGA: return t('influencers_page.sizes.mega');
-      default: return size;
-    }
-  };
+  if (loading) {
+    return (
+      <div className="pt-20 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+          <p className="text-secondary">Loading influencers...</p>
+        </div>
+      </div>
+    );
+  }
 
-  const getTypeLabel = (type: InfluencerType) => {
-    switch (type) {
-      case InfluencerType.TRENDY: return t('influencers_page.types.trendy');
-      case InfluencerType.TRADITIONAL: return t('influencers_page.types.traditional');
-      case InfluencerType.SPECIALIST: return t('influencers_page.types.specialist');
-      case InfluencerType.DIGITAL_STAR: return t('influencers_page.types.digital_star');
-      default: return type;
-    }
-  };
-
-  const getGenderLabel = (g: Gender) => {
-    return g === Gender.MALE ? t('influencers_page.genders.male') : t('influencers_page.genders.female');
-  };
+  if (error) {
+    return (
+      <div className="pt-20 min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-500 mb-4">{error}</p>
+          <Button onClick={() => window.location.reload()}>
+            Retry
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-20">
-      
       <div className="bg-light-bg py-16 px-6 border-b border-border">
          <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <h1 className="text-3xl font-semibold text-primary">{t('nav.influencers')}</h1>
@@ -87,57 +202,66 @@ const Influencers: React.FC = () => {
             </div>
 
             <div className="space-y-6">
+              {/* Category Size Filter */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">{t('influencers_page.category_size')}</label>
+                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">
+                  {t('influencers_page.category_size')}
+                </label>
                 <div className="space-y-2">
-                  {Object.values(InfluencerSize).map((size) => (
-                    <label key={size} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
+                  {lookupData?.sategory_sizes.map((size) => (
+                    <label key={size.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
                       <input 
                         type="radio" 
                         name="size" 
-                        checked={selectedSize === size}
-                        onChange={() => setSelectedSize(size)}
+                        checked={selectedSize === size.id.toString()}
+                        onChange={() => setSelectedSize(size.id.toString())}
                         className="accent-accent w-4 h-4"
                       />
-                      {getSizeLabel(size)}
+                      {size.name} ({size.range})
                     </label>
                   ))}
                 </div>
               </div>
 
+              {/* Content Type Filter */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">{t('influencers_page.type')}</label>
+                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">
+                  {t('influencers_page.type')}
+                </label>
                 <div className="space-y-2">
-                  {Object.values(InfluencerType).map((type) => (
-                    <label key={type} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
+                  {lookupData?.content_types.map((type) => (
+                    <label key={type.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
                       <input 
                         type="radio" 
                         name="type" 
-                        checked={selectedType === type}
-                        onChange={() => setSelectedType(type)}
-                         className="accent-accent w-4 h-4"
+                        checked={selectedType === type.id.toString()}
+                        onChange={() => setSelectedType(type.id.toString())}
+                        className="accent-accent w-4 h-4"
                       />
-                      {getTypeLabel(type)}
+                      {type.name}
                     </label>
                   ))}
                 </div>
               </div>
 
+              {/* Gender Filter */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">{t('influencers_page.gender')}</label>
+                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">
+                  {t('influencers_page.gender')}
+                </label>
                 <div className="space-y-2">
-                   {Object.values(Gender).map((g) => (
-                     <label key={g} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
-                       <input 
-                         type="radio" 
-                         name="gender" 
-                         checked={selectedGender === g}
-                         onChange={() => setSelectedGender(g)}
-                          className="accent-accent w-4 h-4"
-                       />
-                       {getGenderLabel(g)}
-                     </label>
-                   ))}
+                  {lookupData?.sexs.map((sex) => (
+                    <label key={sex.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
+                      <input 
+                        type="radio" 
+                        name="gender" 
+                        checked={selectedGender === sex.id}
+                        onChange={() => setSelectedGender(sex.id)}
+                        className="accent-accent w-4 h-4"
+                      />
+                      {sex.name || sex.male}
+                    </label>
+                  ))}
                 </div>
               </div>
             </div>
@@ -147,8 +271,8 @@ const Influencers: React.FC = () => {
         {/* Results Grid */}
         <div className="flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredInfluencers.length > 0 ? (
-              filteredInfluencers.map((influencer) => {
+            {influencers.length > 0 ? (
+              influencers.map((influencer) => {
                 const name = language === 'ar' ? influencer.name_ar : influencer.name_en;
                 const imgUrl = influencer.profileImage || siteImages.global.placeholderProfile;
                 
@@ -166,25 +290,25 @@ const Influencers: React.FC = () => {
                     <div className="p-6 text-center w-full">
                         <h3 className="text-lg font-bold text-primary mb-1">{name}</h3>
                         <span className="text-xs font-medium text-accent bg-blue-50 px-2 py-1 rounded mb-4 inline-block">
-                        {getSizeLabel(influencer.size).split('(')[0].trim()}
+                          {influencer.size}
                         </span>
                         
                         <div className="flex justify-center gap-4 mb-6">
-                        {influencer.socials.map((social, idx) => {
+                          {influencer.socials.map((social: any, idx: number) => {
                             const Icon = socialIconMap[social.platform];
                             return (
-                            <div key={idx} className="flex items-center gap-1 text-secondary">
+                              <div key={idx} className="flex items-center gap-1 text-secondary">
                                 {Icon && <Icon size={14} />}
                                 <span className="text-xs font-semibold">{social.followers}</span>
-                            </div>
+                              </div>
                             );
-                        })}
+                          })}
                         </div>
 
                         <Link to={`/influencers/${influencer.id}`} className="block w-full">
-                        <Button variant="outline" fullWidth className="text-sm py-2 h-10">
+                          <Button variant="outline" fullWidth className="text-sm py-2 h-10">
                             {t('influencers_page.view_profile')}
-                        </Button>
+                          </Button>
                         </Link>
                     </div>
                   </GlassCard>
