@@ -12,7 +12,7 @@ export const GlassCard: React.FC<CardProps> = ({ children, className = '', hover
   return (
     <div
       className={`
-        bg-card-bg border border-border rounded-[24px] shadow-soft overflow-hidden
+        bg-card-bg 
         ${hoverEffect ? 'transition-all duration-300 hover:shadow-hover hover:-translate-y-1' : ''}
         ${className}
       `}
