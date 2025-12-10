@@ -12,13 +12,13 @@ const About: React.FC = () => {
       
       {/* Hero */}
       <div className="bg-light-bg py-20 px-6">
-         <div className="max-w-[1100px] mx-auto text-center">
+         <div className="container  mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-semibold text-primary mb-6">{t('about.title')}</h1>
             <p className="text-xl text-secondary max-w-2xl mx-auto leading-relaxed">{t('about.desc')}</p>
          </div>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 py-20 space-y-16">
+      <div className="container  mx-auto px-6 py-20 space-y-16">
         
         <div className="w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden">
             <img 

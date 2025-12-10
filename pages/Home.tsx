@@ -53,7 +53,7 @@ const Home: React.FC = () => {
 
       {/* Services Section with Dotted Grid */}
       <section className="py-24 px-6 bg-dots relative">
-        <div className="max-w-[1100px] mx-auto relative z-10">
+        <div className="container  mx-auto relative z-10">
             
             {/* Section Header */}
             <div className="text-center mb-16 space-y-4">

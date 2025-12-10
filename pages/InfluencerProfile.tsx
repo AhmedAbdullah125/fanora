@@ -149,14 +149,14 @@ const InfluencerProfile: React.FC = () => {
     <div className="pt-20 bg-light-bg min-h-screen">
 
       <div className="bg-white border-b border-border">
-        <div className="max-w-[1100px] mx-auto px-6 py-6">
+        <div className="container  mx-auto px-6 py-6">
           <Link to="/influencers" className="inline-flex items-center text-secondary text-sm hover:text-primary transition-colors">
             <Arrow size={16} className="me-2" /> {t('influencers_page.back_to_dir')}
           </Link>
         </div>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 py-12">
+      <div className="container  mx-auto px-6 py-12">
         <GlassCard className="p-0 overflow-hidden">
           <div className="flex flex-col md:flex-row">
 

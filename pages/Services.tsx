@@ -39,7 +39,7 @@ const Services: React.FC = () => {
           <p className="text-xl text-text-secondary max-w-2xl mx-auto">{t('services.subtitle')}</p>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 pb-20">
+      <div className="container  mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((service) => {
              const IconComponent = (Icons as any)[service.icon.charAt(0).toUpperCase() + service.icon.slice(1).replace(/-([a-z])/g, (g) => g[1].toUpperCase())] || Icons.Star;

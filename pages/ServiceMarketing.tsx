@@ -18,7 +18,7 @@ const ServiceMarketing: React.FC = () => {
     <div className="pt-20">
       
       <div className="bg-light-bg py-20 px-6">
-        <div className="max-w-[1100px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div className="container  mx-auto grid lg:grid-cols-2 gap-16 items-center">
             <div>
                 <h1 className="text-4xl md:text-5xl font-semibold text-primary mb-6">{t('marketing.title')}</h1>
                 <p className="text-xl text-secondary leading-relaxed mb-8">
@@ -34,7 +34,7 @@ const ServiceMarketing: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 py-20">
+      <div className="container  mx-auto px-6 py-20">
         <div className="grid lg:grid-cols-2 gap-16">
           
           <div className="space-y-8">

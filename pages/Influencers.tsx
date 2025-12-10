@@ -58,7 +58,7 @@ const Influencers: React.FC = () => {
   useEffect(() => {
     const fetchLookups = async () => {
       try {
-        const lookupsRes = await axios.post(`${API_BASE_URL}/lookups`);
+        const lookupsRes = await axios.get(`${API_BASE_URL}/lookups`);
         if (lookupsRes.data.status && lookupsRes.data.items) {
           setLookupData(lookupsRes.data.items);
         }
@@ -173,7 +173,7 @@ const Influencers: React.FC = () => {
   return (
     <div className="pt-20">
       <div className="bg-light-bg py-16 px-6 border-b border-border">
-         <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+         <div className="container  mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <h1 className="text-3xl font-semibold text-primary">{t('nav.influencers')}</h1>
             <div className="md:hidden w-full">
                 <Button onClick={() => setIsFilterOpen(!isFilterOpen)} variant="secondary" fullWidth className="flex justify-between">
@@ -183,7 +183,7 @@ const Influencers: React.FC = () => {
          </div>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
+      <div className="container  mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
         
         {/* Filters Sidebar */}
         <aside className={`md:w-64 flex-shrink-0 ${isFilterOpen ? 'block' : 'hidden md:block'}`}>

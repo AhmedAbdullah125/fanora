@@ -38,7 +38,7 @@ const Contact: React.FC = () => {
          <p className="text-xl text-secondary">{t('contact.subtitle')}</p>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-6 py-20 grid md:grid-cols-2 gap-16">
+      <div className="container  mx-auto px-6 py-20 grid md:grid-cols-2 gap-16">
           
           <div className="space-y-8">
              <div className="space-y-6">

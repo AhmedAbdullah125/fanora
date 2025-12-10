@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-white border-t border-border mt-auto pt-16 pb-8">
-      <div className="max-w-[1100px] mx-auto px-6">
+      <div className="container  mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
           
           <div className="max-w-xs space-y-4">
