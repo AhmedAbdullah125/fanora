@@ -43,7 +43,7 @@ interface LookupData {
 }
 
 const Influencers: React.FC = () => {
-  const { siteImages } = useData(); 
+  const { siteImages } = useData();
   const [influencers, setInfluencers] = useState<any[]>([]);
   const [lookupData, setLookupData] = useState<LookupData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -53,12 +53,18 @@ const Influencers: React.FC = () => {
   const [selectedGender, setSelectedGender] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { t, language } = useLanguage();
+  console.log(language);
 
   // Fetch lookups once on mount
   useEffect(() => {
     const fetchLookups = async () => {
       try {
-        const lookupsRes = await axios.get(`${API_BASE_URL}/lookups`);
+        const lookupsRes = await axios.get(`${API_BASE_URL}/lookups`, {
+          headers: {
+            'Accept-Language': language,
+            'lang':language
+          }
+        });
         if (lookupsRes.data.status && lookupsRes.data.items) {
           setLookupData(lookupsRes.data.items);
         }
@@ -66,7 +72,7 @@ const Influencers: React.FC = () => {
         console.error('Error fetching lookups:', err);
       }
     };
-    
+
     fetchLookups();
   }, []);
 
@@ -82,12 +88,12 @@ const Influencers: React.FC = () => {
     const fetchInfluencers = async () => {
       try {
         setLoading(true);
-        
+
         // Prepare form data with filters
         const formData = new FormData();
         formData.append('page_size', '10');
         formData.append('page_number', '1');
-        
+
         if (selectedType) {
           formData.append('content_type_id', selectedType);
         }
@@ -97,13 +103,15 @@ const Influencers: React.FC = () => {
         if (selectedGender) {
           formData.append('sex', selectedGender);
         }
-        
+
         const influencersRes = await axios.post(`${API_BASE_URL}/influencers`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'Accept-Language': language,
+            'lang':language
           },
         });
-        
+
         // Process influencers data
         if (influencersRes.data.status && influencersRes.data.items.influencers) {
           const transformedData = influencersRes.data.items.influencers.map((inf: ApiInfluencer) => ({
@@ -125,7 +133,7 @@ const Influencers: React.FC = () => {
           }));
           setInfluencers(transformedData);
         }
-        
+
         setError(null);
       } catch (err) {
         console.error('Error fetching influencers:', err);
@@ -140,7 +148,7 @@ const Influencers: React.FC = () => {
 
   const socialIconMap: Record<string, any> = {
     instagram: Instagram,
-    tiktok: Video, 
+    tiktok: Video,
     youtube: Youtube,
     snapchat: Twitter,
     twitter: Twitter
@@ -173,25 +181,25 @@ const Influencers: React.FC = () => {
   return (
     <div className="pt-20">
       <div className="bg-light-bg py-16 px-6 border-b border-border">
-         <div className="container  mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <h1 className="text-3xl font-semibold text-primary">{t('nav.influencers')}</h1>
-            <div className="md:hidden w-full">
-                <Button onClick={() => setIsFilterOpen(!isFilterOpen)} variant="secondary" fullWidth className="flex justify-between">
-                    <span>{t('influencers_page.filter_btn')}</span> <Filter size={18} />
-                </Button>
-            </div>
-         </div>
+        <div className="container  mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+          <h1 className="text-3xl font-semibold text-primary">{t('nav.influencers')}</h1>
+          <div className="md:hidden w-full">
+            <Button onClick={() => setIsFilterOpen(!isFilterOpen)} variant="secondary" fullWidth className="flex justify-between">
+              <span>{t('influencers_page.filter_btn')}</span> <Filter size={18} />
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className="container  mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
-        
+
         {/* Filters Sidebar */}
         <aside className={`md:w-64 flex-shrink-0 ${isFilterOpen ? 'block' : 'hidden md:block'}`}>
           <div className="sticky top-32 space-y-8">
             <div className="flex items-center justify-between pb-4 border-b border-border">
               <h3 className="font-semibold text-primary">{t('influencers_page.filters')}</h3>
               {(selectedSize || selectedType || selectedGender) && (
-                <button 
+                <button
                   onClick={() => { setSelectedSize(''); setSelectedType(''); setSelectedGender(''); }}
                   className="text-xs font-medium text-accent hover:underline"
                 >
@@ -209,9 +217,9 @@ const Influencers: React.FC = () => {
                 <div className="space-y-2">
                   {lookupData?.sategory_sizes.map((size) => (
                     <label key={size.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
-                      <input 
-                        type="radio" 
-                        name="size" 
+                      <input
+                        type="radio"
+                        name="size"
                         checked={selectedSize === size.id.toString()}
                         onChange={() => setSelectedSize(size.id.toString())}
                         className="accent-accent w-4 h-4"
@@ -230,9 +238,9 @@ const Influencers: React.FC = () => {
                 <div className="space-y-2">
                   {lookupData?.content_types.map((type) => (
                     <label key={type.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
-                      <input 
-                        type="radio" 
-                        name="type" 
+                      <input
+                        type="radio"
+                        name="type"
                         checked={selectedType === type.id.toString()}
                         onChange={() => setSelectedType(type.id.toString())}
                         className="accent-accent w-4 h-4"
@@ -251,9 +259,9 @@ const Influencers: React.FC = () => {
                 <div className="space-y-2">
                   {lookupData?.sexs.map((sex) => (
                     <label key={sex.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
-                      <input 
-                        type="radio" 
-                        name="gender" 
+                      <input
+                        type="radio"
+                        name="gender"
                         checked={selectedGender === sex.id}
                         onChange={() => setSelectedGender(sex.id)}
                         className="accent-accent w-4 h-4"
@@ -274,41 +282,41 @@ const Influencers: React.FC = () => {
               influencers.map((influencer) => {
                 const name = language === 'ar' ? influencer.name_ar : influencer.name_en;
                 const imgUrl = influencer.profileImage || siteImages.global.placeholderProfile;
-                
+
                 return (
                   <GlassCard key={influencer.id} className="flex flex-col items-center p-0 overflow-hidden hoverEffect">
                     <div className="w-full h-48 bg-gray-100 relative">
-                        <img 
-                            src={imgUrl} 
-                            alt={name} 
-                            onError={(e) => { (e.target as HTMLImageElement).src = siteImages.global.placeholderProfile; }}
-                            className="w-full h-full object-cover"
-                        />
+                      <img
+                        src={imgUrl}
+                        alt={name}
+                        onError={(e) => { (e.target as HTMLImageElement).src = siteImages.global.placeholderProfile; }}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    
-                    <div className="p-6 text-center w-full">
-                        <h3 className="text-lg font-bold text-primary mb-1">{name}</h3>
-                        <span className="text-xs font-medium text-accent bg-blue-50 px-2 py-1 rounded mb-4 inline-block">
-                          {influencer.size}
-                        </span>
-                        
-                        <div className="flex justify-center gap-4 mb-6">
-                          {influencer.socials.map((social: any, idx: number) => {
-                            const Icon = socialIconMap[social.platform];
-                            return (
-                              <div key={idx} className="flex items-center gap-1 text-secondary">
-                                {Icon && <Icon size={14} />}
-                                <span className="text-xs font-semibold">{social.followers}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
 
-                        <Link to={`/influencers/${influencer.id}`} className="block w-full">
-                          <Button variant="outline" fullWidth className="text-sm py-2 h-10">
-                            {t('influencers_page.view_profile')}
-                          </Button>
-                        </Link>
+                    <div className="p-6 text-center w-full">
+                      <h3 className="text-lg font-bold text-primary mb-1">{name}</h3>
+                      <span className="text-xs font-medium text-accent bg-blue-50 px-2 py-1 rounded mb-4 inline-block">
+                        {influencer.size}
+                      </span>
+
+                      <div className="flex justify-center gap-4 mb-6">
+                        {influencer.socials.map((social: any, idx: number) => {
+                          const Icon = socialIconMap[social.platform];
+                          return (
+                            <div key={idx} className="flex items-center gap-1 text-secondary">
+                              {Icon && <Icon size={14} />}
+                              <span className="text-xs font-semibold">{social.followers}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <Link to={`/influencers/${influencer.id}`} className="block w-full">
+                        <Button variant="outline" fullWidth className="text-sm py-2 h-10">
+                          {t('influencers_page.view_profile')}
+                        </Button>
+                      </Link>
                     </div>
                   </GlassCard>
                 );
@@ -316,7 +324,7 @@ const Influencers: React.FC = () => {
             ) : (
               <div className="col-span-full py-20 text-center bg-gray-50 rounded-xl border border-border">
                 <h3 className="text-lg font-semibold text-secondary mb-2">{t('influencers_page.no_results')}</h3>
-                <button 
+                <button
                   className="text-accent hover:underline text-sm font-medium"
                   onClick={() => { setSelectedSize(''); setSelectedType(''); setSelectedGender(''); }}
                 >

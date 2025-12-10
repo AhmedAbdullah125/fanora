@@ -63,7 +63,14 @@ const InfluencerProfile: React.FC = () => {
     const fetchInfluencer = async () => {
       try {
         setLoading(true);
-        const response = await axios.post(`${API_BASE_URL}/influencers/${id}`);
+        const response = await axios.post(`${API_BASE_URL}/influencers/${id}`
+          , {
+            headers: {
+              'Accept-Language': language,
+              'lang':language
+            }
+          }
+        );
 
         if (response.data.status && response.data.items) {
           const inf: ApiInfluencer = response.data.items;
