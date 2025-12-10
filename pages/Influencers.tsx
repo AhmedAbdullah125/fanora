@@ -305,7 +305,7 @@ const Influencers: React.FC = () => {
                           const Icon = socialIconMap[social.platform];
                           return (
                             <div key={idx} className="flex items-center gap-1 text-secondary">
-                              {Icon && <Icon size={14} />}
+                              <img src={social.icon} alt={social.platform} className="w-4 h-4 object-contain" />
                               <span className="text-xs font-semibold">{social.followers}</span>
                             </div>
                           );
