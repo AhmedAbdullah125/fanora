@@ -1,74 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fanora | Influencer & Content Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Alexandria', 'sans-serif'],
-            },
-            colors: {
-              primary: '#1B3B32',       // Deep Green
-              'primary-hover': '#15462D',
-              'accent-light': '#E6F3EC', // Light Green
-              'hero-bg': '#F8F8F6',      // Soft Gray
-              border: '#E4E4E4',
-              'card-bg': '#FFFFFF',
-              'tag-bg': '#F3F3F3',
-              'tag-text': '#3D3D3D',
-              text: '#000000',
-              'text-secondary': '#555555',
-            },
-            borderRadius: {
-              '4xl': '32px',
-              '5xl': '48px',
-            },
-            boxShadow: {
-              'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
-              'hover': '0 10px 25px rgba(0, 0, 0, 0.08)',
-            }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://fanora.net/" /> 
+  <meta property="og:title" content="PlayPro - احجز ملعبك بسهولة وسرعة">
+  <meta property="og:description"
+    content="وفّر وقتك وابحث عن الملعب المناسب لك ولأصدقائك، واحجز أونلاين في ثوانٍ. اختر الوقت، تعرّف على المدرب المتاح، وابدأ اللعب بثقة.">
+  <meta property="og:image" content="/logo.png">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@playpro_sa" />
+  <meta name="twitter:title" content="PlayPro - احجز ملعبك بسهولة وسرعة">
+  <meta name="twitter:description"
+    content="وفّر وقتك وابحث عن الملعب المناسب لك ولأصدقائك، واحجز أونلاين في ثوانٍ. اختر الوقت، تعرّف على المدرب المتاح، وابدأ اللعب بثقة.">
+  <meta name="twitter:image" content="/logo.png">
+  <title>Fanora | Influencer & Content Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" href="/public//favicon.ico" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Alexandria', 'sans-serif'],
+          },
+          colors: {
+            primary: '#1B3B32',       // Deep Green
+            'primary-hover': '#15462D',
+            'accent-light': '#E6F3EC', // Light Green
+            'hero-bg': '#F8F8F6',      // Soft Gray
+            border: '#E4E4E4',
+            'card-bg': '#FFFFFF',
+            'tag-bg': '#F3F3F3',
+            'tag-text': '#3D3D3D',
+            text: '#000000',
+            'text-secondary': '#555555',
+          },
+          borderRadius: {
+            '4xl': '32px',
+            '5xl': '48px',
+          },
+          boxShadow: {
+            'soft': '0 4px 20px rgba(0, 0, 0, 0.05)',
+            'hover': '0 10px 25px rgba(0, 0, 0, 0.08)',
           }
         }
       }
-    </script>
-    <style>
-      body {
-        margin: 0;
-        background-color: #FFFFFF;
-        color: #000000;
-        -webkit-font-smoothing: antialiased;
-        font-family: 'Alexandria', sans-serif;
-      }
-      
-      /* Minimal Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #F8F8F6; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #D4D4D4; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #A3A3A3; 
-      }
+    }
+  </script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #FFFFFF;
+      color: #000000;
+      -webkit-font-smoothing: antialiased;
+      font-family: 'Alexandria', sans-serif;
+    }
 
-      /* Dotted Grid Pattern */
-      .bg-dots {
-        background-image: radial-gradient(rgba(0, 0, 0, 0.06) 2px, transparent 0);
-        background-size: 32px 32px;
-      }
-    </style>
+    /* Minimal Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #F8F8F6;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #D4D4D4;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #A3A3A3;
+    }
+
+    /* Dotted Grid Pattern */
+    .bg-dots {
+      background-image: radial-gradient(rgba(0, 0, 0, 0.06) 2px, transparent 0);
+      background-size: 32px 32px;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -81,10 +99,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

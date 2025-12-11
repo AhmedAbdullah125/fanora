@@ -22,9 +22,9 @@ const Home: React.FC = () => {
                <span className="text-sm font-semibold text-primary uppercase tracking-wide">Influencer & Content Hub</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-extrabold text-text tracking-tight leading-[1.1]">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-text tracking-tight ">
             {t('hero.title_start')} <br className="hidden md:block"/>
-            <span className="text-primary relative inline-block">
+            <span className="text-primary relative inline-block m-4">
                 {t('hero.title_highlight')}
                 <svg className="absolute w-full h-3 -bottom-1 left-0 text-accent-light -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                     <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />

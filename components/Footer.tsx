@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Instagram, Twitter, Linkedin, Facebook } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useData } from '../context/DataContext';
+import logo from '@/public/fanora.png';
 
 const Footer: React.FC = () => {
   const { t } = useLanguage();
@@ -11,13 +12,13 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-white border-t border-border mt-auto pt-16 pb-8">
-      <div className="container  mx-auto px-6">
+      <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-12">
           
           <div className="max-w-xs space-y-4">
             <Link to="/" className="inline-block flex items-center gap-2">
                <img 
-                 src={siteImages.global.logo} 
+                 src={logo} 
                  alt="Fanora" 
                  className="h-8 w-auto object-contain" 
                />

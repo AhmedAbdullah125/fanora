@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Globe, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useData } from '../context/DataContext';
+import logo from '@/public/fanora.png';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,7 @@ const Navbar: React.FC = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 pl-2">
             <img 
-            src={siteImages.global.logo} 
+            src={logo} 
             alt="Fanora" 
             className="h-8 w-auto object-contain" 
             onError={(e) => {
