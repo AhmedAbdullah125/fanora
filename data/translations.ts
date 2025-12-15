@@ -22,18 +22,20 @@ export const translations = {
       subtitle: 'Expert solutions for your creative needs',
       view_details: 'View Details',
       content_creation: {
-        title: 'Content Creation',
-        desc: 'Strategic marketing content that tells your brand\'s unique story.',
+        title: ' Matter',
+        desc: `Developing ideas for each project (advertisement, campaign, photoshoot, video editing) specifically for social media.`,
         cta: 'Learn more'
       },
       studio: {
-        title: 'Photo Studio',
-        desc: 'Professional studio rental tailored for high-end photography needs.',
+        title: ' Visual ',
+        desc: `Planning and execution of photoshoots and advertisements (video and photos), designing visual identity for clients (colors, lighting, mood board).`,
         cta: 'Book Now'
       },
       influencer_ads: {
-        title: 'Influencers',
-        desc: 'Connect with trending bloggers, digital stars, and creators.',
+        title: ' Luster ',
+        desc: `Selecting the best and most suitable celebrities for each campaign.
+
+Designing collaboration strategies between the brand and the celebrity.`,
         cta: 'Browse Directory'
       }
     },
@@ -157,17 +159,20 @@ export const translations = {
       view_details: 'عرض التفاصيل',
       content_creation: {
         title: 'صناعة المحتوى',
-        desc: 'محتوى تسويقي استراتيجي يروي قصة علامتك التجارية الفريدة.',
+        desc: 'تطوير الأفكار لكل مشروع ( إعلان – حملة – جلسة تصوير – مونتاج  ) مختصه للسوشال ميديا.',
         cta: 'اعرف المزيد'
       },
       studio: {
-        title: 'استوديو التصوير',
-        desc: 'تأجير استوديو احترافي مصمم خصيصًا لاحتياجات التصوير الراقية.',
+        title: 'التصوير',
+        desc: "التخطيط والتنفيذ لجلسات التصوير والإعلانات ( فيديو وصور ) ، تصميم الهوية البصرية للعملاء ( ألوان، إضاءة، Moodboard ).",
         cta: 'احجز الآن'
       },
       influencer_ads: {
-        title: 'المؤثرين',
-        desc: 'تواصل مع المدونين الرائجين، والنجوم الرقميين، والمبدعين.',
+        title: 'المشاهير',
+        desc: `
+اختيار أفضل المشاهير والأنسب لكل حملة.
+تصميم استراتيجيات التعاون
+ (Collab Strategy) بين العلامة التجاريه والمشهور.`,
         cta: 'تصفح الدليل'
       }
     },
@@ -239,13 +244,18 @@ export const translations = {
       }
     },
     about: {
-      title: 'عن فانورا',
+      title: 'عن FANORA',
       who_we_are: 'من نحن',
-      desc: 'فانورا هي وكالة إبداعية ذات تفكير مستقبلي ومركز للمؤثرين مصمم لسد الفجوة بين العلامات التجارية والجيل الرقمي. نؤمن بقوة سرد القصص، سواء كان ذلك من خلال عدسة الكاميرا، أو حملة تسويقية استراتيجية، أو الصوت الأصيل لمبدع المحتوى.',
-      mission_title: 'مهمتنا',
-      mission_desc: 'تمكين العلامات التجارية والمبدعين بالأدوات والمساحات والعلاقات التي يحتاجونها للازدهار في عالم رقمي أولاً.',
+      desc: `
+مستوحاة من كلمة “فنر”، مصدر الضوء الكويتي التقليدي ، تأسست FANORA لتكون منارة للإبداع والتأثير في عالم التسويق والإعلان ، نؤمن أن الضوء الحقيقي يبدأ من فكرة قوية (Matter)، تكتمل بـ صورة مبهرة (Visual)، وتُختَتم بـ بريق لا يُنسى (Luster).
+
+احنا مو بس شركة إعلان ، بل راح نكون شريك استراتيجي يربط العلامات التجارية بجمهورها من خلال ثلاث مفاتيح : صناعة المحتوى ، التصوير ، والتسويق عبر المشاهير.
+`,
+
+      mission_title: 'رسالتنا',
+      mission_desc: "نُبدع في تقديم حلول تسويقية مبتكرة ، تمزج بين الفكرة الأصيلة ، والرؤية البصرية الجذابة ، والتأثير الإعلامي الواسع ، لنصنع مع عملائنا قصص نجاح تُروى.",
       vision_title: 'رؤيتنا',
-      vision_desc: 'أن نكون النظام البيئي الرائد للإنتاج الإبداعي وتسويق المؤثرين في المنطقة.'
+      vision_desc: 'أن نكون المرجع الإبداعي الأول في الكويت والخليج لصناعة الإعلانات المتكاملة ، راح نور كل الطرق للعلامات التجارية بأسلوب فريد ، أصيل ، ومعاصر.'
     },
     contact: {
       title: 'تواصل معنا',
