@@ -3,140 +3,168 @@ export type TranslationKey = keyof typeof translations.en;
 export const translations = {
   en: {
     nav: {
-      home: 'Home',
-      about: 'About Us',
-      services: 'Services',
-      influencers: 'Influencers',
-      contact: 'Contact',
+      home: "Home",
+      about: "About Us",
+      services: "Our Services",
+      influencers: "Influencers",
+      contact: "Contact Us",
     },
-    hero: {
-      welcome: '✨ Welcome to the future of digital content',
-      title_start: 'Amplify Your',
-      title_highlight: 'Digital Presence',
-      subtitle: 'Fanora is your gateway to premium influencer marketing, high-end photography, and creative content production.',
-      btn_find_influencers: 'Find Influencers',
-      btn_explore_services: 'Explore Services',
-    },
-    services: {
-      title: 'Our Services',
-      subtitle: 'Expert solutions for your creative needs',
-      view_details: 'View Details',
-      content_creation: {
-        title: ' Matter',
-        desc: `Developing ideas for each project (advertisement, campaign, photoshoot, video editing) specifically for social media.`,
-        cta: 'Learn more'
-      },
-      studio: {
-        title: ' Visual ',
-        desc: `Planning and execution of photoshoots and advertisements (video and photos), designing visual identity for clients (colors, lighting, mood board).`,
-        cta: 'Book Now'
-      },
-      influencer_ads: {
-        title: ' Luster ',
-        desc: `Selecting the best and most suitable celebrities for each campaign.
 
-Designing collaboration strategies between the brand and the celebrity.`,
-        cta: 'Browse Directory'
-      }
+    hero: {
+      welcome: "✨ Welcome to the future of digital content",
+      title_start: "Amplify Your",
+      title_highlight: "Digital Presence",
+      subtitle:
+        "Fanora is your gateway to premium influencer marketing, high-end photography, and creative content production.",
+      btn_find_influencers: "Find Influencers",
+      btn_explore_services: "Explore Our Services",
     },
+
+    services: {
+      title: "Our Services – Fanora",
+      subtitle:
+        "At Fanora, we provide fully integrated solutions for managing and marketing influencers and content creators, delivered with a professional approach that ensures real impact and measurable results.",
+      view_details: "View Details",
+
+      content_creation: {
+        title: "Content Creation",
+        desc:
+          "Developing creative ideas for every project (advertisements, campaigns, photoshoots, and video editing), specifically tailored for social media platforms.",
+        cta: "Learn More",
+      },
+
+      studio: {
+        title: "Photography",
+        desc:
+          "Planning and executing professional photoshoots and advertisements (video and photography), as well as designing visual identities for clients including colors, lighting, and mood boards.",
+        cta: "Book Now",
+      },
+
+      influencer_ads: {
+        title: "Influencers",
+        desc:
+          "Selecting the most suitable influencers for each campaign and designing effective collaboration strategies between brands and influencers.",
+        cta: "Browse Directory",
+      },
+    },
+
     marketing: {
-      title: 'Marketing Content Production',
-      desc: 'Elevate your brand with our premium content production services. We create visually stunning and strategically effective content designed to engage your audience and drive conversions.',
-      what_we_offer: 'What We Offer',
-      offer_1: 'Social Media Strategy & Assets',
-      offer_2: 'Promotional Videos & Reels',
-      offer_3: 'Copywriting & Blog Posts',
-      offer_4: 'Brand Identity Design',
-      whatsapp_btn: 'Order via WhatsApp',
-      whatsapp_msg: "Hello, I’m interested in the Marketing Content Production service."
+      title: "Marketing Content Production",
+      desc:
+        "Elevate your brand with our premium content production services. We create visually compelling and strategically driven content designed to engage your audience and deliver real results.",
+      what_we_offer: "What We Offer",
+      offer_1: "Social Media Strategy & Assets",
+      offer_2: "Promotional Videos & Reels",
+      offer_3: "Copywriting & Blog Content",
+      offer_4: "Brand Identity Design",
+      whatsapp_btn: "Order via WhatsApp",
+      whatsapp_msg:
+        "Hello, I’m interested in the Marketing Content Production service.",
     },
+
     studio_page: {
-      title: 'Photography Studio',
-      subtitle: 'Professional space for professional results',
-      features_title: 'Studio Features',
-      features_desc: 'Fully equipped with professional lighting, backdrops, dressing room, and high-speed makeup station.',
-      book_title: 'Book a Session',
-      success_title: 'Booking Request Sent!',
-      success_desc: 'We have received your request and will contact you shortly to confirm.',
-      book_another: 'Book Another',
-      label_name: 'Full Name',
-      label_email: 'Email Address',
-      label_date: 'Date & Time',
-      label_duration: 'Duration (Hrs)',
-      placeholder_name: 'Your Name',
-      placeholder_email: 'you@example.com',
-      min_notice: '* Min 48h in advance',
-      btn_submit: 'Confirm Booking',
-      required: 'Required',
-      invalid_email: 'Valid email required',
+      title: "Photography Studio",
+      subtitle: "A Professional Space for Professional Results",
+      features_title: "Studio Features",
+      features_desc:
+        "Fully equipped with professional lighting, backdrops, dressing rooms, and a high-speed makeup station.",
+      book_title: "Book a Session",
+      success_title: "Booking Request Sent!",
+      success_desc:
+        "We have received your request and will contact you shortly to confirm.",
+      book_another: "Book Another Session",
+      label_name: "Full Name",
+      label_email: "Email Address",
+      label_date: "Date & Time",
+      label_duration: "Duration (Hours)",
+      placeholder_name: "Your Name",
+      placeholder_email: "you@example.com",
+      min_notice: "* Minimum 48 hours notice",
+      btn_submit: "Confirm Booking",
+      required: "Required",
+      invalid_email: "A valid email is required",
       durations: {
-        two_hours: '2 Hours',
-        four_hours: '4 Hours',
-        full_day: 'Full Day'
-      }
+        two_hours: "2 Hours",
+        four_hours: "4 Hours",
+        full_day: "Full Day",
+      },
     },
+
     influencers_page: {
-      filters: 'Filters',
-      reset: 'Reset',
-      category_size: 'Category Size',
-      type: 'Type',
-      gender: 'Gender',
-      filter_btn: 'Filter Influencers',
-      view_profile: 'View Profile',
-      no_results: 'No influencers found matching filters.',
-      clear_filters: 'Clear Filters',
-      back_to_dir: 'Back to Directory',
-      request_influencer: 'Request this Influencer',
-      recent_content: 'Recent Content',
-      whatsapp_req_msg: "Hello, I’d like to collaborate with the influencer: {NAME}. Profile link: {URL}",
+      filters: "Filters",
+      reset: "Reset",
+      category_size: "Category Size",
+      type: "Type",
+      gender: "Gender",
+      filter_btn: "Filter Influencers",
+      view_profile: "View Profile",
+      no_results: "No influencers found matching your filters.",
+      clear_filters: "Clear Filters",
+      back_to_dir: "Back to Directory",
+      request_influencer: "Request This Influencer",
+      recent_content: "Recent Content",
+      whatsapp_req_msg:
+        "Hello, I would like to collaborate with the influencer: {NAME}. Profile link: {URL}",
+
       types: {
-        trendy: 'Trendy Blogger',
-        traditional: 'Traditional Nano Creator',
-        specialist: 'Specialist',
-        digital_star: 'Digital Star'
+        trendy: "Trendy Blogger",
+        traditional: "Traditional Content Creator",
+        specialist: "Specialist",
+        digital_star: "Digital Star",
       },
+
       genders: {
-        male: 'Male',
-        female: 'Female'
+        male: "Male",
+        female: "Female",
       },
+
       sizes: {
-        nano: 'Nano (1K-10K)',
-        micro: 'Micro (10K-100K)',
-        macro: 'Macro (100K-1M)',
-        mega: 'Mega (1M+)'
-      }
+        nano: "Nano (1K–10K)",
+        micro: "Micro (10K–100K)",
+        macro: "Macro (100K–1M)",
+        mega: "Mega (1M+)",
+      },
     },
+
     about: {
-      title: 'About Fanora',
-      who_we_are: 'Who We Are',
-      desc: 'Fanora is a forward-thinking creative agency and influencer hub designed to bridge the gap between brands and the digital generation. We believe in the power of storytelling, whether it\'s through a camera lens, a strategic marketing campaign, or the authentic voice of a creator.',
-      mission_title: 'Our Mission',
-      mission_desc: 'To empower brands and creators with the tools, spaces, and connections they need to thrive in a digital-first world.',
-      vision_title: 'Our Vision',
-      vision_desc: 'To be the leading ecosystem for creative production and influencer marketing in the region.'
+      title: "About Fanora",
+      who_we_are: "Who We Are",
+      desc:
+        "Inspired by the traditional Kuwaiti lantern 'Fanar'—a symbol of light—Fanora was founded to become a beacon of creativity and influence in the world of marketing and advertising.\n\nWe believe that true impact begins with a powerful idea (Matter), is brought to life through stunning visuals (Visual), and is completed with an unforgettable shine (Luster).\n\nWe are not just an advertising agency; we are a strategic partner that connects brands with their audiences through three core pillars: content creation, photography, and influencer marketing.",
+
+      mission_title: "Our Mission",
+      mission_desc:
+        "At Fanora, our mission is to empower influencers and content creators while connecting them with brands through professional management, creative content, and smart marketing solutions that ensure impact, credibility, and long-term success—while preserving each influencer’s unique identity and artistic value.",
+
+      vision_title: "Our Vision",
+      vision_desc:
+        "To become the leading platform for influencer content creation and marketing in the Arab world by delivering authentic, impactful, and value-driven advertising experiences that connect brands with their audiences in a genuine and professional way.",
     },
+
     contact: {
-      title: 'Get in Touch',
-      subtitle: 'We\'d love to hear from you',
-      visit_us: 'Visit Us',
-      address: '123 Creative Tower, Digital City, Dubai, UAE',
-      email_us: 'Email Us',
-      call_us: 'Call Us',
-      open_maps: 'Open in Google Maps',
-      send_msg_title: 'Send a Message',
-      placeholder_name: 'Name',
-      placeholder_email: 'Email',
-      placeholder_subject: 'Subject',
-      placeholder_msg: 'Your Message',
-      btn_send: 'Send Message'
+      title: "Contact Us",
+      subtitle: "We’d love to hear from you",
+      visit_us: "Visit Us",
+      address: "123 Creative Tower, Digital City, Dubai, UAE",
+      email_us: "Email Us",
+      call_us: "Call Us",
+      open_maps: "Open in Google Maps",
+      send_msg_title: "Send a Message",
+      placeholder_name: "Name",
+      placeholder_email: "Email",
+      placeholder_subject: "Subject",
+      placeholder_msg: "Your Message",
+      btn_send: "Send Message",
     },
+
     footer: {
-      desc: 'Bringing vibrant creativity to the digital world. We connect brands with stars and create content that shines.',
-      quick_links: 'Quick Links',
-      connect: 'Connect',
-      rights: '© 2024 Fanora Agency. All rights reserved.'
-    }
+      desc: "Connecting influence with success",
+      quick_links: "Quick Links",
+      connect: "Connect With Us",
+      rights: "© 2024 Fanora Agency. All rights reserved.",
+    },
   },
+
   ar: {
     nav: {
       home: 'الرئيسية',
@@ -154,8 +182,8 @@ Designing collaboration strategies between the brand and the celebrity.`,
       btn_explore_services: 'استكشف خدماتنا',
     },
     services: {
-      title: 'خدماتنا',
-      subtitle: 'حلول احترافية لاحتياجاتك الإبداعية',
+      title: 'خدماتنا – Fanora',
+      subtitle: "في Fanora نقدّم حلولًا متكاملة لإدارة وتسويق المشاهير وصنّاع المحتوى، بأسلوب احترافي يضمن التأثير الحقيقي والنتائج الملموسة.",
       view_details: 'عرض التفاصيل',
       content_creation: {
         title: 'صناعة المحتوى',
@@ -252,17 +280,17 @@ Designing collaboration strategies between the brand and the celebrity.`,
 احنا مو بس شركة إعلان ، بل راح نكون شريك استراتيجي يربط العلامات التجارية بجمهورها من خلال ثلاث مفاتيح : صناعة المحتوى ، التصوير ، والتسويق عبر المشاهير.
 `,
 
-      mission_title: 'رسالتنا',
-      mission_desc: "نُبدع في تقديم حلول تسويقية مبتكرة ، تمزج بين الفكرة الأصيلة ، والرؤية البصرية الجذابة ، والتأثير الإعلامي الواسع ، لنصنع مع عملائنا قصص نجاح تُروى.",
-      vision_title: 'رؤيتنا',
-      vision_desc: 'أن نكون المرجع الإبداعي الأول في الكويت والخليج لصناعة الإعلانات المتكاملة ، راح نور كل الطرق للعلامات التجارية بأسلوب فريد ، أصيل ، ومعاصر.'
+      mission_title: 'رسالة FANORA ',
+      mission_desc: "في FANORA نعمل على تمكين المشاهير وصناع المحتوى، وربطهم بالعلامات التجارية من خلال إدارة احترافية، محتوى إبداعي، وحلول تسويقية ذكية تضمن التأثير، المصداقية، والنتائج المستدامة، مع الحفاظ على هوية كل مشهور وقيمته الفنية.",
+      vision_title: 'رؤية FANORA',
+      vision_desc: "أن تكون FANORA المنصة الرائدة في صناعة وتسويق محتوى المشاهير في العالم العربي ، عبر تقديم تجارب إعلانية إنسانية ، مؤثرة ، وذات قيمة حقيقية تربط العلامات التجارية بجمهورها بصدق واحترافية."
     },
     contact: {
       title: 'تواصل معنا',
       subtitle: 'نود أن نسمع منك',
       visit_us: 'زرنا',
       address: '123 برج الإبداع، المدينة الرقمية، دبي، الإمارات',
-      email_us: 'راسلنا',
+      email_us: 'تواصل معانا',
       call_us: 'اتصل بنا',
       open_maps: 'فتح في خرائط جوجل',
       send_msg_title: 'أرسل رسالة',
@@ -273,7 +301,7 @@ Designing collaboration strategies between the brand and the celebrity.`,
       btn_send: 'إرسال الرسالة'
     },
     footer: {
-      desc: 'نجلب الإبداع النابض بالحياة إلى العالم الرقمي. نربط العلامات التجارية بالنجوم وننشئ محتوى يتألق.',
+      desc: "نربط التأثير بالنجاح",
       quick_links: 'روابط سريعة',
       connect: 'تواصل معنا',
       rights: '© 2024 وكالة فانورا. جميع الحقوق محفوظة.'

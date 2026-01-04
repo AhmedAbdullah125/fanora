@@ -1,5 +1,10 @@
 
 import { Gender, Influencer, InfluencerSize, InfluencerType, Service, SiteImages } from '../types';
+import mapImg from '../public/location.png';
+import contentImg from '../public/content.png';
+import influencerImg from '../public/influencer.png';
+import cameraImg from '../public/camera.png';
+import missionImg from '../public/mission.png';
 
 export const initialInfluencers: Influencer[] = [
   {
@@ -152,17 +157,17 @@ export const initialSiteImages: SiteImages = {
   },
   home: {
     // Subtle gradient/texture if needed, or left empty for clean style
-    heroOverlay: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=2000&q=80', 
+    heroOverlay: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=2000&q=80',
   },
   about: {
     // Team meeting / creative agency office vibe
-    hero: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80',
+    hero: missionImg,
   },
   services: {
-    marketingBg: 'https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=1200&q=80',
+    marketingBg: contentImg,
     // Main Studio Background - Wide shot of a clean white cyclorama wall studio
-    studioBg: 'https://images.unsplash.com/photo-1576402098679-052601962323?auto=format&fit=crop&w=1600&q=80',
-    influencerBg: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1200&q=80',
+    studioBg: cameraImg,
+    influencerBg: influencerImg,
     marketingGallery: [
       'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80',
@@ -177,6 +182,6 @@ export const initialSiteImages: SiteImages = {
   },
   contact: {
     // High quality modern city map vibe
-    map: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80'
+    map: mapImg,
   }
 };

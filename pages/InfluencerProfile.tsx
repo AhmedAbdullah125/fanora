@@ -67,7 +67,7 @@ const InfluencerProfile: React.FC = () => {
           , {
             headers: {
               'Accept-Language': language,
-              'lang':language
+              'lang': language
             }
           }
         );
@@ -270,7 +270,7 @@ const InfluencerProfile: React.FC = () => {
                       <img
                         src={img}
                         alt={`Content ${idx + 1}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        className="aspect-[3/2] w-full overflow-hidden border-b border-border bg-gray-100 relative rounded-t-lg"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
                         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-3">

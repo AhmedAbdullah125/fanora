@@ -62,7 +62,7 @@ const Influencers: React.FC = () => {
         const lookupsRes = await axios.get(`${API_BASE_URL}/lookups`, {
           headers: {
             'Accept-Language': language,
-            'lang':language
+            'lang': language
           }
         });
         if (lookupsRes.data.status && lookupsRes.data.items) {
@@ -108,7 +108,7 @@ const Influencers: React.FC = () => {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Accept-Language': language,
-            'lang':language
+            'lang': language
           },
         });
 
@@ -285,7 +285,7 @@ const Influencers: React.FC = () => {
 
                 return (
                   <GlassCard key={influencer.id} className="flex flex-col items-center p-0 overflow-hidden hoverEffect">
-                    <div className="w-full h-48 bg-gray-100 relative">
+                    <div className="aspect-[3/2] w-full overflow-hidden border-b border-border bg-gray-100 relative rounded-t-lg">
                       <img
                         src={imgUrl}
                         alt={name}
