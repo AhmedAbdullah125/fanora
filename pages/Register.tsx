@@ -76,17 +76,20 @@ export default function RegisterPage() {
 
     async function onPickAvatar(file: File | null) {
         if (!file) {
-            setValue("avatar", undefined as any, { shouldValidate: true, shouldDirty: true });
+            setValue("avatar", undefined as any, { shouldDirty: true });
+            if (avatarPreview?.startsWith("blob:")) URL.revokeObjectURL(avatarPreview);
             setAvatarPreview(null);
             return;
         }
 
-        try {
-            // Show initial preview for immediate feedback
-            setAvatarPreview(URL.createObjectURL(file));
+        // quick local preview
+        const localUrl = URL.createObjectURL(file);
+        if (avatarPreview?.startsWith("blob:")) URL.revokeObjectURL(avatarPreview);
+        setAvatarPreview(localUrl);
 
+        try {
             const fd = new FormData();
-            fd.append("image", file);
+            fd.append("image", file); // MUST be "image"
 
             const res = await fetch("/api/optimize-image", {
                 method: "POST",
@@ -96,24 +99,25 @@ export default function RegisterPage() {
             if (!res.ok) throw new Error("Optimization failed");
 
             const blob = await res.blob();
-            const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
-                type: "image/webp",
-            });
 
-            setValue("avatar", optimizedFile as any, { shouldValidate: true, shouldDirty: true });
+            const optimizedFile = new File(
+                [blob],
+                file.name.replace(/\.[^/.]+$/, "") + ".webp",
+                { type: "image/webp" }
+            );
 
-            // Cleanup old preview URL if needed
-            if (avatarPreview && avatarPreview.startsWith("blob:")) {
-                URL.revokeObjectURL(avatarPreview);
-            }
-            setAvatarPreview(URL.createObjectURL(blob));
+            setValue("avatar", optimizedFile as any, { shouldDirty: true });
+
+            // preview optimized result
+            const optimizedUrl = URL.createObjectURL(blob);
+            if (localUrl.startsWith("blob:")) URL.revokeObjectURL(localUrl);
+            setAvatarPreview(optimizedUrl);
         } catch (err) {
             console.error("Image optimization failed:", err);
-            // Fallback to original file
-            setValue("avatar", file as any, { shouldValidate: true, shouldDirty: true });
+            // fallback: keep original file
+            setValue("avatar", file as any, { shouldDirty: true });
         }
     }
-
     async function onSubmit(values: RegisterFormValues) {
         register_mutation.mutate(values, {
             onSuccess: () => navigate("/register/success"),

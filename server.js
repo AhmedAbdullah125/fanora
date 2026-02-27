@@ -1,11 +1,14 @@
+import express from 'express';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import sharp from 'sharp';
+import { fileURLToPath } from 'url';
 
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const sharp = require('sharp');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 const app = express();
@@ -100,7 +103,7 @@ app.post('/api/optimize-image', memoryUpload.single('image'), async (req, res) =
 });
 
 // Fallback for React Router
-app.get('*', (req, res) => {
+app.get(/(.*)/, (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
