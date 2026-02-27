@@ -48,11 +48,11 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [translations, setTranslations] = useState<any>(initialTranslations);
   const [settings, setSettings] = useState<SiteSettings>({
       whatsappNumber: '96555558718',
-      contactEmail: 'hello@fanora.com',
+      contactEmail: 'hello@Kani.com',
       contactPhone: '+965 5555 8718',
       address_en: '123 Creative Tower, Digital City, Dubai, UAE',
       address_ar: '123 برج الإبداع، المدينة الرقمية، دبي، الإمارات',
-      logoText: 'Fanora'
+      logoText: 'Kani'
   });
   const [siteImages, setSiteImages] = useState<SiteImages>(initialSiteImages);
 
@@ -81,9 +81,9 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         console.warn("Backend API not connected. Falling back to LocalStorage.");
         setIsBackendConnected(false);
         // Fallback Logic
-        const savedImages = localStorage.getItem('fanora_site_images');
+        const savedImages = localStorage.getItem('Kani_site_images');
         if (savedImages) setSiteImages(JSON.parse(savedImages));
-        const savedInfluencers = localStorage.getItem('fanora_influencers');
+        const savedInfluencers = localStorage.getItem('Kani_influencers');
         if (savedInfluencers) setInfluencers(JSON.parse(savedInfluencers));
       } finally {
         setLoading(false);
@@ -118,8 +118,8 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
     } else {
       // Local Storage Fallback
-      if(newData.influencers) localStorage.setItem('fanora_influencers', JSON.stringify(newData.influencers));
-      if(newData.siteImages) localStorage.setItem('fanora_site_images', JSON.stringify(newData.siteImages));
+      if(newData.influencers) localStorage.setItem('Kani_influencers', JSON.stringify(newData.influencers));
+      if(newData.siteImages) localStorage.setItem('Kani_site_images', JSON.stringify(newData.siteImages));
       // ... etc
     }
   };

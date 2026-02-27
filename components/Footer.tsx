@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
             <Link to="/" className="inline-block flex items-center gap-2">
               <img
                 src={logo}
-                alt="Fanora"
+                alt="Kani"
                 className="h-8 w-auto object-contain"
               />
             </Link>

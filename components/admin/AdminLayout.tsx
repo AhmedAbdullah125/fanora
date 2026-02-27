@@ -32,7 +32,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       {/* Sidebar */}
       <aside className="w-64 bg-indigo-900 text-white flex flex-col fixed h-full z-10 shadow-xl">
         <div className="p-6 border-b border-indigo-800">
-          <h2 className="text-2xl font-black tracking-tight">Fanora<span className="text-pink-500">CMS</span></h2>
+          <h2 className="text-2xl font-black tracking-tight">Kani<span className="text-pink-500">CMS</span></h2>
           <p className="text-xs text-indigo-300 mt-1">Admin Control Panel</p>
         </div>
 

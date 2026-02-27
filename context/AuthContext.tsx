@@ -11,14 +11,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // Initialize from session storage to persist across refreshes but not permanent
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return sessionStorage.getItem('fanora_auth') === 'true';
+    return sessionStorage.getItem('Kani_auth') === 'true';
   });
 
   const login = (password: string) => {
     // Hardcoded for demo purposes. In production, verify against backend.
     if (password === 'admin123') {
       setIsAuthenticated(true);
-      sessionStorage.setItem('fanora_auth', 'true');
+      sessionStorage.setItem('Kani_auth', 'true');
       return true;
     }
     return false;
@@ -26,7 +26,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const logout = () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem('fanora_auth');
+    sessionStorage.removeItem('Kani_auth');
   };
 
   return (

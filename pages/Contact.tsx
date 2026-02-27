@@ -77,7 +77,7 @@ const Contact: React.FC = () => {
               <div className="w-12 h-12 bg-light-bg rounded-lg flex items-center justify-center text-primary flex-shrink-0"><Mail size={20} /></div>
               <div className="w-full flex flex-col items-center">
                 <h4 className="font-semibold text-primary text-lg mb-1">{t('contact.email_us')}</h4>
-                <p className="text-secondary text-center">hello@fanora.com</p>
+                <p className="text-secondary text-center">hello@Kani.com</p>
               </div>
             </div>
             <div className="flex gap-2 flex-col items-center w-full">

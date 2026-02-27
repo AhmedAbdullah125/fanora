@@ -23,7 +23,7 @@ const About: React.FC = () => {
         <div className="w-full aspect-[3/1] rounded-2xl overflow-hidden">
           <img
             src={siteImages.about.hero}
-            alt="About Fanora"
+            alt="About Kani"
             className="w-full h-full object-cover"
           />
         </div>

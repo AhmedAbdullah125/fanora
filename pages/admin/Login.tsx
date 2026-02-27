@@ -31,7 +31,7 @@ const Login: React.FC = () => {
             <Lock size={32} />
           </div>
         </div>
-        <h2 className="text-3xl font-black text-white text-center mb-2">Fanora Admin</h2>
+        <h2 className="text-3xl font-black text-white text-center mb-2">Kani Admin</h2>
         <p className="text-indigo-200 text-center mb-8">Secure Access Portal</p>
         
         <form onSubmit={handleSubmit} className="space-y-4">

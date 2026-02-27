@@ -6,6 +6,7 @@ import { GlassCard, Button } from '../components/ui/GlassComponents';
 import { Filter, Instagram, Twitter, Youtube, Video } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { API_BASE_URL } from '@/lib/apiConfig';
+import { useGetLookups } from '../lib/useGetLookups';
 
 interface ApiInfluencer {
   id: number;
@@ -36,16 +37,11 @@ interface ApiInfluencer {
   total_followers: number;
 }
 
-interface LookupData {
-  sategory_sizes: Array<{ id: number; name: string; range: string }>;
-  content_types: Array<{ id: number; name: string }>;
-  sexs: Array<{ id: string; name: string }>;
-}
 
 const Influencers: React.FC = () => {
   const { siteImages } = useData();
   const [influencers, setInfluencers] = useState<any[]>([]);
-  const [lookupData, setLookupData] = useState<LookupData | null>(null);
+  const { data: lookupData } = useGetLookups();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string>('');
@@ -53,28 +49,7 @@ const Influencers: React.FC = () => {
   const [selectedGender, setSelectedGender] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { t, language } = useLanguage();
-  console.log(language);
 
-  // Fetch lookups once on mount
-  useEffect(() => {
-    const fetchLookups = async () => {
-      try {
-        const lookupsRes = await axios.get(`${API_BASE_URL}/lookups`, {
-          headers: {
-            'Accept-Language': language,
-            'lang': language
-          }
-        });
-        if (lookupsRes.data.status && lookupsRes.data.items) {
-          setLookupData(lookupsRes.data.items);
-        }
-      } catch (err) {
-        console.error('Error fetching lookups:', err);
-      }
-    };
-
-    fetchLookups();
-  }, []);
 
   // Helper function to format follower counts
   const formatFollowers = (count: number): string => {

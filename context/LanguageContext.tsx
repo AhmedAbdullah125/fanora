@@ -14,14 +14,14 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('fanora_lang');
+    const saved = localStorage.getItem('Kani_lang');
     return (saved === 'ar' || saved === 'en') ? saved : 'en';
   });
 
   const { translations } = useData();
 
   useEffect(() => {
-    localStorage.setItem('fanora_lang', language);
+    localStorage.setItem('Kani_lang', language);
     const dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.dir = dir;
     document.documentElement.lang = language;
@@ -35,7 +35,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const t = (path: string): string => {
     const keys = path.split('.');
     let current: any = translations[language];
-    
+
     for (const key of keys) {
       if (current[key] === undefined) {
         // Fallback or warning could go here

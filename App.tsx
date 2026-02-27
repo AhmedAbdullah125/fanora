@@ -1,6 +1,7 @@
-
 import React from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import { authStore } from './lib/authStore';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -26,6 +27,10 @@ import InfluencerManager from './pages/admin/InfluencerManager';
 import BookingManager from './pages/admin/BookingManager';
 import ContentManager from './pages/admin/ContentManager';
 import ImageManager from './pages/admin/ImageManager';
+import RegisterPage from './pages/Register';
+import RegisterSuccessPage from './pages/RegisterSuccess';
+import LoginPlaceholder from './pages/LoginPlaceholder';
+import ProfilePage from './pages/Profile';
 
 // ScrollToTop component to reset scroll on route change
 const ScrollToTop = () => {
@@ -47,19 +52,32 @@ const PublicLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => 
   </div>
 );
 
+// Middleware: Only accessible if NOT logged in
+const GuestRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const tokens = authStore.get();
+  return tokens ? <Navigate to="/profile" replace /> : <>{children}</>;
+};
+
+// Middleware: Only accessible if logged in
+const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const tokens = authStore.get();
+  return tokens ? <>{children}</> : <Navigate to="/login" replace />;
+};
+
 const App: React.FC = () => {
   return (
     <DataProvider>
       <LanguageProvider>
         <AuthProvider>
+          <Toaster position="top-center" richColors dir="rtl" />
           <Router>
             <ScrollToTop />
             <Routes>
               {/* Utility Route */}
               <Route path="/download-assets" element={
-                 <PublicLayout>
-                    <DownloadAssets />
-                 </PublicLayout>
+                <PublicLayout>
+                  <DownloadAssets />
+                </PublicLayout>
               } />
 
               {/* Admin Routes */}
@@ -90,6 +108,10 @@ const App: React.FC = () => {
                     <Route path="/influencers" element={<Influencers />} />
                     <Route path="/influencers/:id" element={<InfluencerProfile />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route path="/login" element={<GuestRoute><LoginPlaceholder /></GuestRoute>} />
+                    <Route path="/register" element={<GuestRoute><RegisterPage /></GuestRoute>} />
+                    <Route path="/register/success" element={<RegisterSuccessPage />} />
+                    <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                   </Routes>
                 </PublicLayout>
               } />
