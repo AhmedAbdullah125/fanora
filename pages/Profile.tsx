@@ -212,7 +212,7 @@ export default function ProfilePage() {
                             <span className="hidden sm:inline">{t("profile_page.btn_logout")}</span>
                         </Button>
                     </div>
-                    <p className="text-sm text-text-secondary">
+                    <p className="text-sm text-gray-600">
                         {t("profile_page.subtitle")}
                     </p>
                 </CardHeader>
@@ -468,7 +468,7 @@ export default function ProfilePage() {
 
                     {/* Read-only stats */}
                     {inf && (
-                        <div className="mt-6 p-4 rounded-xl bg-primary/5 border border-border/30 text-sm text-text-secondary space-y-1">
+                        <div className="mt-6 p-4 rounded-xl bg-primary/5 border border-border/30 text-sm text-gray-600 space-y-1">
                             <p>🗓️ {t("profile_page.stats_join_date")}: {new Date(profile!.created_at).toLocaleDateString(lang === "ar" ? "ar-EG" : "en-US")}</p>
                             <p>👥 {t("profile_page.stats_followers")}: {inf.total_followers.toLocaleString(lang === "ar" ? "ar-EG" : "en-US")}</p>
                             {inf.category_size && <p>📊 {t("profile_page.stats_audience")}: {inf.category_size.name} ({inf.category_size.range})</p>}
@@ -488,7 +488,7 @@ export default function ProfilePage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <p className="text-text-secondary text-sm">
+                            <p className="text-gray-600 text-sm">
                                 {t("profile_page.logout_confirm_desc")}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3">

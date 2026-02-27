@@ -63,7 +63,7 @@ export default function LoginPlaceholder() {
             <GlassCard className="w-full max-w-md p-8 bg-white border border-border shadow-xl rounded-2xl relative z-10 flex flex-col">
                 <div className="text-center mb-8 space-y-3">
                     <h1 className="text-3xl md:text-4xl font-extrabold text-text tracking-tight">{t("login_page.title")}</h1>
-                    <p className="text-sm md:text-base text-text-secondary font-medium">
+                    <p className="text-sm md:text-base text-gray-600 font-medium">
                         {t("login_page.subtitle")}
                     </p>
                 </div>
@@ -115,7 +115,7 @@ export default function LoginPlaceholder() {
                     </form>
 
                     <div className="flex items-center justify-between text-sm mt-8 pt-6 border-t border-border">
-                        <span className="text-text-secondary font-medium">{t("login_page.no_account")}</span>
+                        <span className="text-gray-600 font-medium">{t("login_page.no_account")}</span>
                         <Link className="text-primary font-bold hover:underline transition-all" to="/register">
                             {t("login_page.create_account")}
                         </Link>

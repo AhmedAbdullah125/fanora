@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
                 className="h-8 w-auto object-contain"
               />
             </Link>
-            <p className="text-text-secondary text-sm leading-relaxed">
+            <p className="text-gray-600 text-sm leading-relaxed">
               {t('footer.desc')}
             </p>
           </div>
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
           <div className="flex gap-12 md:gap-24">
             <div>
               <h4 className="font-bold text-text mb-6 text-sm uppercase tracking-wider">{t('footer.quick_links')}</h4>
-              <ul className="space-y-3 text-sm text-text-secondary font-medium">
+              <ul className="space-y-3 text-sm text-gray-600 font-medium">
                 <li><Link to="/about" className="hover:text-primary transition-colors">{t('nav.about')}</Link></li>
                 <li><Link to="/services" className="hover:text-primary transition-colors">{t('nav.services')}</Link></li>
                 <li><Link to="/influencers" className="hover:text-primary transition-colors">{t('nav.influencers')}</Link></li>

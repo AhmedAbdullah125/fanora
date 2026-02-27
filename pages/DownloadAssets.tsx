@@ -44,13 +44,13 @@ const DownloadAssets: React.FC = () => {
   }, []);
 
   const assets = [
-     // Global & Home
+    // Global & Home
     { url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80', path: 'assets/about/hero.jpg' },
     { url: 'https://images.unsplash.com/photo-1493612276216-ee3925520721?auto=format&fit=crop&w=800&q=80', path: 'assets/services/marketing-bg.jpg' },
     { url: 'https://images.unsplash.com/photo-1590664216212-62e7637d1665?auto=format&fit=crop&w=800&q=80', path: 'assets/services/studio-bg.jpg' },
     { url: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80', path: 'assets/services/influencer-bg.jpg' },
     { url: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80', path: 'assets/contact/map.jpg' },
-    
+
     // Galleries
     { url: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80', path: 'assets/services/gallery/marketing-1.jpg' },
     { url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80', path: 'assets/services/gallery/marketing-2.jpg' },
@@ -71,7 +71,7 @@ const DownloadAssets: React.FC = () => {
     { url: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=600&q=80', path: 'assets/influencers/sarah/2.jpg' },
     { url: 'https://images.unsplash.com/photo-1529139574466-a302c27e3844?auto=format&fit=crop&w=600&q=80', path: 'assets/influencers/sarah/3.jpg' },
     { url: 'https://images.unsplash.com/photo-1485230405346-71acb9518d9c?auto=format&fit=crop&w=600&q=80', path: 'assets/influencers/sarah/4.jpg' },
-    
+
     { url: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80', path: 'assets/influencers/omar/1.jpg' },
     { url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80', path: 'assets/influencers/omar/2.jpg' },
     { url: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=600&q=80', path: 'assets/influencers/omar/3.jpg' },
@@ -107,16 +107,16 @@ const DownloadAssets: React.FC = () => {
       const asset = assets[i];
       try {
         setLog(`Fetching: ${asset.path}`);
-        await delay(500); 
+        await delay(500);
 
         const fetchUrl = proxyUrl + encodeURIComponent(asset.url);
         const response = await fetch(fetchUrl);
-        
+
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        
+
         const blob = await response.blob();
         if (blob.size < 100) throw new Error('Empty file received');
-        
+
         zip.file(asset.path, blob);
         completed++;
       } catch (err: any) {
@@ -128,81 +128,81 @@ const DownloadAssets: React.FC = () => {
     }
 
     if (completed === 0) {
-        setStatus('error');
-        setLog('All downloads failed. Please check your internet connection.');
-        return;
+      setStatus('error');
+      setLog('All downloads failed. Please check your internet connection.');
+      return;
     }
 
     setStatus('zipping');
     setLog('Compressing files into assets.zip...');
-    
+
     zip.generateAsync({ type: "blob" }).then((content: any) => {
-        window.saveAs(content, "assets.zip");
-        setStatus('done');
-        setLog(`Done! ${completed} files downloaded. ${failed} failed.`);
+      window.saveAs(content, "assets.zip");
+      setStatus('done');
+      setLog(`Done! ${completed} files downloaded. ${failed} failed.`);
     });
   };
 
   return (
     <div className="pt-20 min-h-screen bg-light-bg flex justify-center items-center px-4">
-        <GlassCard className="max-w-md w-full text-center space-y-6">
-            <div className="flex justify-center mb-4">
-                <div className="p-4 bg-light-bg rounded-full text-accent">
-                    <FileArchive size={32} />
-                </div>
+      <GlassCard className="max-w-md w-full text-center space-y-6">
+        <div className="flex justify-center mb-4">
+          <div className="p-4 bg-light-bg rounded-full text-accent">
+            <FileArchive size={32} />
+          </div>
+        </div>
+
+        <h1 className="text-2xl font-bold text-primary">Download Assets</h1>
+        <p className="text-gray-600 text-sm">
+          Click below to download <b>assets.zip</b> containing all demo images.
+          Extract this into your project's <code>public/</code> folder.
+        </p>
+
+        {status === 'loading_libs' && (
+          <div className="flex items-center justify-center gap-2 text-accent text-sm font-medium">
+            <Loader className="animate-spin" size={16} /> Loading libraries...
+          </div>
+        )}
+
+        {status === 'downloading' && (
+          <div className="space-y-2">
+            <div className="w-full bg-border rounded-full h-1.5 overflow-hidden">
+              <div className="bg-accent h-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
             </div>
-            
-            <h1 className="text-2xl font-bold text-primary">Download Assets</h1>
-            <p className="text-secondary text-sm">
-                Click below to download <b>assets.zip</b> containing all demo images. 
-                Extract this into your project's <code>public/</code> folder.
-            </p>
+            <p className="text-xs text-accent font-medium">{progress}%</p>
+          </div>
+        )}
 
-            {status === 'loading_libs' && (
-                <div className="flex items-center justify-center gap-2 text-accent text-sm font-medium">
-                    <Loader className="animate-spin" size={16} /> Loading libraries...
-                </div>
-            )}
+        <div className="bg-light-bg rounded-lg p-3 text-xs font-mono text-left h-24 overflow-y-auto text-gray-600 border border-border">
+          {log}
+        </div>
 
-            {status === 'downloading' && (
-                <div className="space-y-2">
-                    <div className="w-full bg-border rounded-full h-1.5 overflow-hidden">
-                        <div className="bg-accent h-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
-                    </div>
-                    <p className="text-xs text-accent font-medium">{progress}%</p>
-                </div>
-            )}
+        <Button
+          onClick={handleDownload}
+          fullWidth
+          disabled={status === 'loading_libs' || status === 'downloading' || status === 'zipping'}
+          className="py-3"
+        >
+          {status === 'idle' || status === 'done' || status === 'error' ? (
+            <><Download className="me-2" size={18} /> Download assets.zip</>
+          ) : (
+            <><Loader className="me-2 animate-spin" size={18} /> Processing...</>
+          )}
+        </Button>
 
-            <div className="bg-light-bg rounded-lg p-3 text-xs font-mono text-left h-24 overflow-y-auto text-secondary border border-border">
-                {log}
-            </div>
+        {status === 'done' && (
+          <div className="p-3 bg-green-50 text-green-700 rounded-lg text-sm font-medium flex items-center gap-2 justify-center border border-green-200">
+            <CheckCircle size={16} /> Download Complete!
+          </div>
+        )}
 
-            <Button 
-                onClick={handleDownload} 
-                fullWidth 
-                disabled={status === 'loading_libs' || status === 'downloading' || status === 'zipping'}
-                className="py-3"
-            >
-                {status === 'idle' || status === 'done' || status === 'error' ? (
-                    <><Download className="me-2" size={18} /> Download assets.zip</>
-                ) : (
-                    <><Loader className="me-2 animate-spin" size={18} /> Processing...</>
-                )}
-            </Button>
-            
-            {status === 'done' && (
-                <div className="p-3 bg-green-50 text-green-700 rounded-lg text-sm font-medium flex items-center gap-2 justify-center border border-green-200">
-                    <CheckCircle size={16} /> Download Complete!
-                </div>
-            )}
-            
-             {status === 'error' && (
-                <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm font-medium flex items-center gap-2 justify-center border border-red-200">
-                    <AlertCircle size={16} /> Error occurred.
-                </div>
-            )}
+        {status === 'error' && (
+          <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm font-medium flex items-center gap-2 justify-center border border-red-200">
+            <AlertCircle size={16} /> Error occurred.
+          </div>
+        )}
 
-        </GlassCard>
+      </GlassCard>
     </div>
   );
 };

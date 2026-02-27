@@ -21,7 +21,7 @@ const ServiceMarketing: React.FC = () => {
         <div className="container  mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-semibold text-primary mb-6">{t('marketing.title')}</h1>
-            <p className="text-xl text-secondary leading-relaxed mb-8">
+            <p className="text-xl text-gray-600 leading-relaxed mb-8">
               {t('marketing.desc')}
             </p>
             <Button onClick={handleWhatsApp} className="px-8 py-4 bg-[#25D366] hover:bg-[#1ebc57] border-transparent text-white">
@@ -46,7 +46,7 @@ const ServiceMarketing: React.FC = () => {
                 t('marketing.offer_3'),
                 t('marketing.offer_4')
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-4 text-secondary">
+                <li key={i} className="flex items-start gap-4 text-gray-600">
                   <div className="p-1 bg-accent/10 rounded text-accent mt-0.5"><Check size={16} /></div>
                   <span className="font-medium text-lg">{item}</span>
                 </li>

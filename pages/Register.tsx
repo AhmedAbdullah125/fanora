@@ -97,7 +97,7 @@ export default function RegisterPage() {
             <Card className="w-full max-w-3xl shadow-hover border-border/50 relative z-10 bg-white/80 backdrop-blur-xl">
                 <CardHeader className="space-y-3 pb-6 border-b border-border/40">
                     <CardTitle className="text-2xl font-bold text-primary">{t("register_page.title")}</CardTitle>
-                    <p className="text-sm text-text-secondary">
+                    <p className="text-sm text-gray-600">
                         {t("register_page.subtitle")}
                     </p>
                 </CardHeader>

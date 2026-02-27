@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
               to={link.path}
               className={`px-5 py-2.5 rounded-[48px] text-sm font-medium transition-all duration-300 ${isActive(link.path)
                 ? 'bg-primary text-white shadow-md'
-                : 'text-text-secondary hover:text-primary hover:bg-gray-50'
+                : 'text-gray-600 hover:text-primary hover:bg-gray-50'
                 }`}
             >
               {link.name}
@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
               to="/profile"
               className={`flex items-center gap-2 px-3 py-1.5 rounded-[48px] text-sm font-medium transition-all duration-300 ${isActive('/profile')
                 ? 'bg-primary text-white shadow-md'
-                : 'text-text-secondary hover:text-primary hover:bg-gray-50'
+                : 'text-gray-600 hover:text-primary hover:bg-gray-50'
                 }`}
             >
               {userAvatar ? (
@@ -83,7 +83,7 @@ const Navbar: React.FC = () => {
               to="/login"
               className={`px-5 py-2.5 rounded-[48px] text-sm font-medium transition-all duration-300 ${isActive('/login')
                 ? 'bg-primary text-white shadow-md'
-                : 'text-text-secondary hover:text-primary hover:bg-gray-50'
+                : 'text-gray-600 hover:text-primary hover:bg-gray-50'
                 }`}
             >
               {t('nav.login')}
@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
           {/* Language Switcher */}
           <button
             onClick={toggleLanguage}
-            className="w-10 h-10 rounded-full flex items-center justify-center text-secondary hover:bg-accent-light hover:text-primary transition-colors"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-gray-600 hover:bg-accent-light hover:text-primary transition-colors"
             title="Switch Language"
           >
             <span className="font-bold text-sm text-primary">{language === 'en' ? 'AR' : 'EN'}</span>
@@ -128,7 +128,7 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${isActive(link.path)
                   ? 'bg-primary text-white'
-                  : 'text-text-secondary hover:bg-gray-50'
+                  : 'text-gray-600 hover:bg-gray-50'
                   }`}
               >
                 {link.name}
@@ -144,7 +144,7 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${isActive('/profile')
                   ? 'bg-primary text-white'
-                  : 'text-text-secondary hover:bg-gray-50'
+                  : 'text-gray-600 hover:bg-gray-50'
                   }`}
               >
                 {userAvatar ? (
@@ -162,7 +162,7 @@ const Navbar: React.FC = () => {
                 onClick={() => setIsOpen(false)}
                 className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${isActive('/login')
                   ? 'bg-primary text-white'
-                  : 'text-text-secondary hover:bg-gray-50'
+                  : 'text-gray-600 hover:bg-gray-50'
                   }`}
               >
                 {t('nav.login')}

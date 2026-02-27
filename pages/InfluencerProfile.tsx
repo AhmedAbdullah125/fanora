@@ -133,7 +133,7 @@ const InfluencerProfile: React.FC = () => {
       <div className="pt-20 min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
-          <p className="text-secondary">Loading influencer profile...</p>
+          <p className="text-gray-600">Loading influencer profile...</p>
         </div>
       </div>
     );
@@ -157,7 +157,7 @@ const InfluencerProfile: React.FC = () => {
 
       <div className="bg-white border-b border-border">
         <div className="container  mx-auto px-6 py-6">
-          <Link to="/influencers" className="inline-flex items-center text-secondary text-sm hover:text-primary transition-colors">
+          <Link to="/influencers" className="inline-flex items-center text-gray-600 text-sm hover:text-primary transition-colors">
             <Arrow size={16} className="me-2" /> {t('influencers_page.back_to_dir')}
           </Link>
         </div>
@@ -218,15 +218,15 @@ const InfluencerProfile: React.FC = () => {
             <div className="w-full md:w-2/3 p-8 md:p-12 space-y-8">
               <div>
                 <div className="flex gap-2 mb-4">
-                  <span className="px-3 py-1 bg-gray-100 text-secondary text-xs font-semibold rounded">
+                  <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">
                     {influencer.size} ({influencer.sizeRange})
                   </span>
-                  <span className="px-3 py-1 bg-gray-100 text-secondary text-xs font-semibold rounded">
+                  <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded">
                     {influencer.type}
                   </span>
                 </div>
                 <h1 className="text-4xl font-semibold text-primary mb-4">{influencer.name}</h1>
-                <p className="text-lg text-secondary leading-relaxed">{influencer.bio}</p>
+                <p className="text-lg text-gray-600 leading-relaxed">{influencer.bio}</p>
               </div>
 
               {/* Stats */}
@@ -235,7 +235,7 @@ const InfluencerProfile: React.FC = () => {
                   const Icon = socialIconMap[social.platform];
                   return (
                     <div key={idx} className="flex flex-col">
-                      <div className="flex items-center gap-2 text-secondary mb-1">
+                      <div className="flex items-center gap-2 text-gray-600 mb-1">
                         {Icon && <Icon size={16} />}
                         <span className="text-xs uppercase font-semibold">{social.platform}</span>
                       </div>

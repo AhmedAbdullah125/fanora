@@ -36,7 +36,7 @@ const Services: React.FC = () => {
           <span className="text-sm font-bold text-primary tracking-wide">Our Expertise</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-text">{t('services.title')}</h1>
-        <p className="text-xl text-text-secondary max-w-2xl mx-auto">{t('services.subtitle')}</p>
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t('services.subtitle')}</p>
       </div>
 
       <div className="container  mx-auto px-6 pb-20">
@@ -63,7 +63,7 @@ const Services: React.FC = () => {
 
                 <div className="p-8 flex flex-col flex-grow">
                   <h3 className="text-2xl font-bold text-text mb-3">{title}</h3>
-                  <p className="text-text-secondary mb-8 flex-grow leading-relaxed">{desc}</p>
+                  <p className="text-gray-600 mb-8 flex-grow leading-relaxed">{desc}</p>
 
                   <div className="flex flex-wrap gap-2 mb-8">
                     {getTags(service.id).map(tag => (

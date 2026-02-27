@@ -43,7 +43,7 @@ const ServiceStudio: React.FC = () => {
 
       <div className="bg-light-bg py-20 px-6 text-center">
         <h1 className="text-4xl md:text-5xl font-semibold text-primary mb-4">{t('studio_page.title')}</h1>
-        <p className="text-xl text-secondary">{t('studio_page.subtitle')}</p>
+        <p className="text-xl text-gray-600">{t('studio_page.subtitle')}</p>
       </div>
 
       <div className="container  mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16">
@@ -62,7 +62,7 @@ const ServiceStudio: React.FC = () => {
 
           <div>
             <h3 className="text-2xl font-semibold text-primary mb-4">{t('studio_page.features_title')}</h3>
-            <p className="text-secondary leading-relaxed">{t('studio_page.features_desc')}</p>
+            <p className="text-gray-600 leading-relaxed">{t('studio_page.features_desc')}</p>
           </div>
         </div>
 
@@ -77,7 +77,7 @@ const ServiceStudio: React.FC = () => {
                 <Check size={24} />
               </div>
               <h3 className="text-xl font-bold mb-2">{t('studio_page.success_title')}</h3>
-              <p className="text-secondary mb-6">{t('studio_page.success_desc')}</p>
+              <p className="text-gray-600 mb-6">{t('studio_page.success_desc')}</p>
               <Button onClick={() => setSubmitted(false)} variant="outline" className="text-sm">{t('studio_page.book_another')}</Button>
             </div>
           ) : (

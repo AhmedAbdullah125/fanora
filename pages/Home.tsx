@@ -32,7 +32,7 @@ const Home: React.FC = () => {
                         </span>
                     </h1>
 
-                    <p className="text-xl text-text-secondary max-w-2xl mx-auto font-normal leading-relaxed">
+                    <p className="text-xl text-gray-600 max-w-2xl mx-auto font-normal leading-relaxed">
                         {t('hero.subtitle')}
                     </p>
 
@@ -85,7 +85,7 @@ const Home: React.FC = () => {
 
                                 <div className="p-8 flex flex-col flex-1">
                                     <h3 className="text-2xl font-bold text-text mb-3 group-hover:text-primary transition-colors">{t('services.content_creation.title')}</h3>
-                                    <p className="text-text-secondary leading-relaxed mb-6 line-clamp-3">{t('services.content_creation.desc')}</p>
+                                    <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">{t('services.content_creation.desc')}</p>
 
                                     <div className="mt-auto flex flex-wrap gap-2">
                                         <span className="px-3 py-1 bg-tag-bg text-tag-text text-xs font-semibold rounded-2xl">Strategy</span>
@@ -108,7 +108,7 @@ const Home: React.FC = () => {
 
                                 <div className="p-8 flex flex-col flex-1">
                                     <h3 className="text-2xl font-bold text-text mb-3 group-hover:text-primary transition-colors">{t('services.studio.title')}</h3>
-                                    <p className="text-text-secondary leading-relaxed mb-6 line-clamp-3">{t('services.studio.desc')}</p>
+                                    <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">{t('services.studio.desc')}</p>
 
                                     <div className="mt-auto flex flex-wrap gap-2">
                                         <span className="px-3 py-1 bg-tag-bg text-tag-text text-xs font-semibold rounded-2xl">Equipment</span>
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
 
                                 <div className="p-8 flex flex-col flex-1">
                                     <h3 className="text-2xl font-bold text-text mb-3 group-hover:text-primary transition-colors">{t('services.influencer_ads.title')}</h3>
-                                    <p className="text-text-secondary leading-relaxed mb-6 line-clamp-3">{t('services.influencer_ads.desc')}</p>
+                                    <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">{t('services.influencer_ads.desc')}</p>
 
                                     <div className="mt-auto flex flex-wrap gap-2">
                                         <span className="px-3 py-1 bg-tag-bg text-tag-text text-xs font-semibold rounded-2xl">Nano</span>

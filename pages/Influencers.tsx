@@ -134,7 +134,7 @@ const Influencers: React.FC = () => {
       <div className="pt-20 min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
-          <p className="text-secondary">Loading influencers...</p>
+          <p className="text-gray-600">Loading influencers...</p>
         </div>
       </div>
     );
@@ -186,12 +186,12 @@ const Influencers: React.FC = () => {
             <div className="space-y-6">
               {/* Category Size Filter */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">
+                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-600 mb-3">
                   {t('influencers_page.category_size')}
                 </label>
                 <div className="space-y-2">
                   {lookupData?.sategory_sizes.map((size) => (
-                    <label key={size.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
+                    <label key={size.id} className="flex items-center gap-3 text-sm text-gray-600 cursor-pointer hover:text-primary">
                       <input
                         type="radio"
                         name="size"
@@ -207,12 +207,12 @@ const Influencers: React.FC = () => {
 
               {/* Content Type Filter */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">
+                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-600 mb-3">
                   {t('influencers_page.type')}
                 </label>
                 <div className="space-y-2">
                   {lookupData?.content_types.map((type) => (
-                    <label key={type.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
+                    <label key={type.id} className="flex items-center gap-3 text-sm text-gray-600 cursor-pointer hover:text-primary">
                       <input
                         type="radio"
                         name="type"
@@ -228,12 +228,12 @@ const Influencers: React.FC = () => {
 
               {/* Gender Filter */}
               <div>
-                <label className="block text-xs uppercase tracking-wider font-semibold text-secondary mb-3">
+                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-600 mb-3">
                   {t('influencers_page.gender')}
                 </label>
                 <div className="space-y-2">
                   {lookupData?.sexs.map((sex) => (
-                    <label key={sex.id} className="flex items-center gap-3 text-sm text-secondary cursor-pointer hover:text-primary">
+                    <label key={sex.id} className="flex items-center gap-3 text-sm text-gray-600 cursor-pointer hover:text-primary">
                       <input
                         type="radio"
                         name="gender"
@@ -279,7 +279,7 @@ const Influencers: React.FC = () => {
                         {influencer.socials.map((social: any, idx: number) => {
                           const Icon = socialIconMap[social.platform];
                           return (
-                            <div key={idx} className="flex items-center gap-1 text-secondary">
+                            <div key={idx} className="flex items-center gap-1 text-gray-600">
                               <img src={social.icon} alt={social.platform} className="w-4 h-4 object-contain" />
                               <span className="text-xs font-semibold">{social.followers}</span>
                             </div>
@@ -298,7 +298,7 @@ const Influencers: React.FC = () => {
               })
             ) : (
               <div className="col-span-full py-20 text-center bg-gray-50 rounded-xl border border-border">
-                <h3 className="text-lg font-semibold text-secondary mb-2">{t('influencers_page.no_results')}</h3>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">{t('influencers_page.no_results')}</h3>
                 <button
                   className="text-accent hover:underline text-sm font-medium"
                   onClick={() => { setSelectedSize(''); setSelectedType(''); setSelectedGender(''); }}

@@ -14,7 +14,7 @@ const About: React.FC = () => {
       <div className="bg-light-bg py-20 px-6">
         <div className="container  mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-semibold text-primary mb-6">{t('about.title')}</h1>
-          <p className="text-xl text-secondary max-w-2xl mx-auto leading-relaxed">{t('about.desc')}</p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">{t('about.desc')}</p>
         </div>
       </div>
 
@@ -31,11 +31,11 @@ const About: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <h3 className="text-2xl font-semibold text-primary mb-4">{t('about.mission_title')}</h3>
-            <p className="text-secondary leading-relaxed">{t('about.mission_desc')}</p>
+            <p className="text-gray-600 leading-relaxed">{t('about.mission_desc')}</p>
           </div>
           <div>
             <h3 className="text-2xl font-semibold text-primary mb-4">{t('about.vision_title')}</h3>
-            <p className="text-secondary leading-relaxed">{t('about.vision_desc')}</p>
+            <p className="text-gray-600 leading-relaxed">{t('about.vision_desc')}</p>
           </div>
         </div>
 
