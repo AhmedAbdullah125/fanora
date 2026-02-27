@@ -8,7 +8,7 @@ export const translations = {
       services: "Our Services",
       influencers: "Influencers",
       contact: "Contact Us",
-      login: "Login",
+      login: "Influencer Login",
       profile: "Profile",
     },
 
@@ -251,7 +251,7 @@ export const translations = {
       services: 'خدماتنا',
       influencers: 'المؤثرين',
       contact: 'اتصل بنا',
-      login: 'تسجيل الدخول',
+      login: 'تسجيل المؤثرين',
       profile: 'الملف الشخصي',
     },
     hero: {
@@ -389,7 +389,7 @@ export const translations = {
     },
     login_page: {
       title: "تسجيل الدخول",
-      subtitle: "ادخل بياناتك للوصول إلى لوحة فانورة.",
+      subtitle: "ادخل بياناتك للوصول إلى لوحة كاني.",
       email_label: "البريد الإلكتروني",
       password_label: "كلمة المرور",
       btn_login: "تسجيل الدخول",
@@ -400,7 +400,7 @@ export const translations = {
       error_title: "تعذر تسجيل الدخول",
     },
     register_page: {
-      title: "تسجيل المشاهير في فانورة",
+      title: "تسجيل المشاهير في كاني",
       subtitle: "يُرجى تعبئة جميع الحقول المطلوبة — سيتم مراجعة طلبك من الإدارة.",
       avatar_click: "اضغط للتغيير",
       avatar_hint: "انقر لاختيار صورة — حد أقصى 5MB",

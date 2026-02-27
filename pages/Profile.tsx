@@ -151,10 +151,44 @@ export default function ProfilePage() {
         if (inf?.avatar) setAvatarPreview(inf.avatar);
     }, [profile, reset, setValue]);
 
-    function onPickAvatar(file: File | null) {
-        setValue("avatar", file as any, { shouldDirty: true });
-        if (!file) { setAvatarPreview(profile?.influencer?.avatar ?? null); return; }
-        setAvatarPreview(URL.createObjectURL(file));
+    async function onPickAvatar(file: File | null) {
+        if (!file) {
+            setValue("avatar", undefined as any, { shouldDirty: true });
+            setAvatarPreview(profile?.influencer?.avatar ?? null);
+            return;
+        }
+
+        try {
+            // Show initial preview for immediate feedback
+            setAvatarPreview(URL.createObjectURL(file));
+
+            const fd = new FormData();
+            fd.append("image", file);
+
+            const res = await fetch("/api/optimize-image", {
+                method: "POST",
+                body: fd,
+            });
+
+            if (!res.ok) throw new Error("Optimization failed");
+
+            const blob = await res.blob();
+            const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
+                type: "image/webp",
+            });
+
+            setValue("avatar", optimizedFile as any, { shouldDirty: true });
+
+            // Cleanup old preview URL if needed
+            if (avatarPreview && avatarPreview.startsWith("blob:")) {
+                URL.revokeObjectURL(avatarPreview);
+            }
+            setAvatarPreview(URL.createObjectURL(blob));
+        } catch (err) {
+            console.error("Image optimization failed:", err);
+            // Fallback to original file
+            setValue("avatar", file as any, { shouldDirty: true });
+        }
     }
 
     function onSubmit(values: ProfileFormValues) {

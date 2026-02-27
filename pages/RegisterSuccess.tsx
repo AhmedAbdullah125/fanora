@@ -20,7 +20,7 @@ export default function RegisterSuccessPage() {
                     <Alert>
                         <AlertTitle>معلومة</AlertTitle>
                         <AlertDescription>
-                            حفظ الطلب داخل النظام — كل البيانات التي أدخلها المشهور تظل محفوظة داخل فانورة حتى تراجعها الإدارة
+                            حفظ الطلب داخل النظام — كل البيانات التي أدخلها المشهور تظل محفوظة داخل كاني حتى تراجعها الإدارة
                         </AlertDescription>
                     </Alert>
 

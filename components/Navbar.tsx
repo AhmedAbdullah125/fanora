@@ -80,8 +80,8 @@ const Navbar: React.FC = () => {
             </Link>
           ) : (
             <Link
-              to="/login"
-              className={`px-5 py-2.5 rounded-[48px] text-sm font-medium transition-all duration-300 ${isActive('/login')
+              to="/register"
+              className={`px-5 py-2.5 rounded-[48px] text-sm font-medium transition-all duration-300 ${isActive('/register')
                 ? 'bg-primary text-white shadow-md'
                 : 'text-gray-600 hover:text-primary hover:bg-gray-50'
                 }`}

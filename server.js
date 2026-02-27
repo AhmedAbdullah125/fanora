@@ -5,6 +5,8 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const sharp = require('sharp');
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -35,6 +37,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+const memoryUpload = multer({ storage: multer.memoryStorage() });
+
 
 // --- API ROUTES ---
 
@@ -68,10 +72,31 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No file uploaded' });
   }
-  
+
   // Return the public URL
   const publicUrl = `/assets/uploads/${req.file.filename}`;
   res.json({ url: publicUrl });
+});
+
+// 5. Optimize Image
+app.post('/api/optimize-image', memoryUpload.single('image'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+
+  try {
+    const buffer = req.file.buffer;
+    const optimizedImage = await sharp(buffer)
+      .resize(800, 600, { fit: 'inside' }) // Resize to max 800x600
+      .webp({ quality: 80 })               // Convert to WebP
+      .toBuffer();
+
+    res.set('Content-Type', 'image/webp');
+    res.send(optimizedImage);
+  } catch (err) {
+    console.error('Optimization error:', err);
+    res.status(500).json({ error: 'Failed to optimize image' });
+  }
 });
 
 // Fallback for React Router
