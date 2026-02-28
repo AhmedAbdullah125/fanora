@@ -32,6 +32,7 @@ export const registerSchema = z.object({
     sex: z.enum(["male", "female"], { error: "اختر الجنس" }),
     date_of_birth: z.string().min(1, "تاريخ الميلاد مطلوب"),
     country: z.string().length(2, "اختر الدولة"),  // ISO 2-letter code e.g. KW, EG
+    nationality: z.string().length(2, "اختر الجنسية"),
     national_number: z.string().trim().min(6, "الرقم المدني لازم 6 أحرف على الأقل"),
     is_his_account_verified: z.enum(["0", "1"], { error: "اختر حالة التوثيق" }),
 

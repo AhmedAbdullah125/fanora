@@ -68,7 +68,8 @@ export function useRegisterMutation() {
             // Personal info
             fd.append("sex", values.sex);
             fd.append("date_of_birth", values.date_of_birth);
-            fd.append("country", values.country);
+            fd.append("accommodation", values.country);
+            fd.append("nationality", values.nationality);
             fd.append("national_number", values.national_number);
             fd.append("is_his_account_verified", values.is_his_account_verified);
 

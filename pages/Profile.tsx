@@ -7,10 +7,12 @@ import { useProfile, useUpdateProfile } from "../lib/useProfile";
 import { useGetLookups } from "../lib/useGetLookups";
 import countries from "i18n-iso-countries";
 import arLocale from "i18n-iso-countries/langs/ar.json";
+import enLocale from "i18n-iso-countries/langs/en.json";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
 countries.registerLocale(arLocale);
+countries.registerLocale(enLocale);
 
 import { Input } from "@/components/ui/input";
 import { Label } from "../components/ui/label";
@@ -44,6 +46,7 @@ const profileSchema = z.object({
     sex: z.enum(["male", "female"]).optional(),
     date_of_birth: z.string().optional(),
     country: z.string().optional(),
+    nationality: z.string().optional(),
     national_number: z.string().optional(),
     is_his_account_verified: z.enum(["0", "1"]).optional(),
     content_type_id: z.string().optional(),
@@ -75,18 +78,18 @@ export default function ProfilePage() {
     };
 
     const countryOptions = React.useMemo(() => {
-        const obj = countries.getNames("ar", { select: "official" });
+        const obj = countries.getNames(lang === "ar" ? "ar" : "en", { select: "official" });
         return Object.entries(obj)
             .map(([code, name]) => ({ code, name }))
-            .sort((a, b) => a.name.localeCompare(b.name, "ar"));
-    }, []);
+            .sort((a, b) => a.name.localeCompare(b.name, lang === "ar" ? "ar" : "en"));
+    }, [lang]);
 
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileSchema),
         defaultValues: {
             name: "", phone: "", name_ar: "", name_en: "",
             bio_ar: "", bio_en: "", sex: undefined, date_of_birth: "",
-            country: "", national_number: "",
+            country: "", nationality: "", national_number: "",
             is_his_account_verified: undefined,
             content_type_id: "", category_size_id: "",
             instagram: "", snapchat: "", youtube: "", tiktok: "",
@@ -126,7 +129,8 @@ export default function ProfilePage() {
             bio_en: inf?.bio ?? "",
             sex: (inf?.sex as "male" | "female") ?? undefined,
             date_of_birth: dob,
-            country: inf?.country ?? "",
+            country: inf?.accommodation ?? "",
+            nationality: inf?.nationality ?? "",
             national_number: inf?.national_number ?? "",
             is_his_account_verified: verified,
             content_type_id: contentTypeId,
@@ -142,7 +146,8 @@ export default function ProfilePage() {
         // pattern that doesn't always pick up reset() in one cycle.
         setTimeout(() => {
             if (inf?.sex) setValue("sex", inf.sex as "male" | "female", { shouldDirty: false });
-            if (inf?.country) setValue("country", inf.country, { shouldDirty: false });
+            if (inf?.accommodation) setValue("country", inf.accommodation, { shouldDirty: false });
+            if (inf?.nationality) setValue("nationality", inf.nationality, { shouldDirty: false });
             setValue("is_his_account_verified", verified, { shouldDirty: false });
             if (contentTypeId) setValue("content_type_id", contentTypeId, { shouldDirty: false });
             if (categorySizeId) setValue("category_size_id", categorySizeId, { shouldDirty: false });
@@ -391,6 +396,21 @@ export default function ProfilePage() {
                                 </PopoverContent>
                             </Popover>
                             <input type="hidden" {...register("date_of_birth")} />
+                        </div>
+
+                        {/* nationality */}
+                        <div className="space-y-2">
+                            <Label>{t("register_page.nationality_label")}</Label>
+                            <Select value={watch("nationality") || ""} onValueChange={(v) => setValue("nationality", v, { shouldValidate: true, shouldDirty: true })}>
+                                <SelectTrigger className={INPUT_CLS}>
+                                    <SelectValue placeholder={t("register_page.nationality_placeholder")} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {countryOptions.map((c) => (
+                                        <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
 
                         {/* country */}

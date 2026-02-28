@@ -19,7 +19,8 @@ export type Influencer = {
     sex: "male" | "female" | string;
     date_of_birth: string;
     national_number: string;
-    country: string;
+    accommodation: string;
+    nationality: string;
     is_his_account_verified: number;
     instagram: string | null;
     tiktok: string | null;
@@ -101,6 +102,7 @@ export type UpdateProfilePayload = {
     sex?: string;
     date_of_birth?: string;
     country?: string;
+    nationality?: string;
     national_number?: string;
     is_his_account_verified?: string;
     content_type_id?: string;
@@ -123,6 +125,8 @@ export function useUpdateProfile() {
                 if (val === undefined || val === null) return;
                 if (key === "avatar" && val instanceof File) {
                     fd.append("avatar", val);
+                } else if (key === "country") {
+                    fd.append("accommodation", val as string);
                 } else if (key !== "avatar") {
                     fd.append(key as string, val as string);
                 }

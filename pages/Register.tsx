@@ -7,11 +7,11 @@ import { useRegisterMutation } from "../lib/useRegister";
 import { useGetLookups } from "../lib/useGetLookups";
 import countries from "i18n-iso-countries";
 import arLocale from "i18n-iso-countries/langs/ar.json";
+import enLocale from "i18n-iso-countries/langs/en.json";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-
 countries.registerLocale(arLocale);
-
+countries.registerLocale(enLocale);
 import { Input } from "@/components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
@@ -41,13 +41,13 @@ export default function RegisterPage() {
     const navigate = useNavigate();
     const [avatarPreview, setAvatarPreview] = React.useState<string | null>(null);
 
-    // country code options (Arabic names, sorted)
+    // country code options (dynamic based on lang)
     const countryOptions = React.useMemo(() => {
-        const obj = countries.getNames("ar", { select: "official" });
+        const obj = countries.getNames(lang === "ar" ? "ar" : "en", { select: "official" });
         return Object.entries(obj)
             .map(([code, name]) => ({ code, name }))
-            .sort((a, b) => a.name.localeCompare(b.name, "ar"));
-    }, []);
+            .sort((a, b) => a.name.localeCompare(b.name, lang === "ar" ? "ar" : "en"));
+    }, [lang]);
 
     const register_mutation = useRegisterMutation();
     const { data: lookups } = useGetLookups();
@@ -62,6 +62,7 @@ export default function RegisterPage() {
             sex: undefined as any,
             date_of_birth: "",
             country: "",
+            nationality: "",
             national_number: "",
             is_his_account_verified: undefined as any,
             content_type_id: "",
@@ -326,6 +327,22 @@ export default function RegisterPage() {
                             </Popover>
                             <input type="hidden" {...register("date_of_birth")} />
                             {errors.date_of_birth && <p className="text-sm text-destructive">{errors.date_of_birth.message}</p>}
+                        </div>
+
+                        {/* nationality */}
+                        <div className="space-y-2">
+                            <Label>{t("register_page.nationality_label")}</Label>
+                            <Select value={watch("nationality") || ""} onValueChange={(v) => setValue("nationality", v, { shouldValidate: true })}>
+                                <SelectTrigger className={INPUT_CLS}>
+                                    <SelectValue placeholder={t("register_page.nationality_placeholder")} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {countryOptions.map((c) => (
+                                        <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            {errors.nationality && <p className="text-sm text-destructive">{errors.nationality.message}</p>}
                         </div>
 
                         {/* country */}
