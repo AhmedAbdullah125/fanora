@@ -20,11 +20,11 @@ interface ApiInfluencer {
     id: number;
     name: string;
     range: string;
-  };
+  } | null;
   content_type: {
     id: number;
     name: string;
-  };
+  } | null;
   social_media_accounts: Array<{
     id: number;
     follower_count: number;
@@ -88,23 +88,23 @@ const Influencers: React.FC = () => {
         });
 
         // Process influencers data
-        if (influencersRes.data.status && influencersRes.data.items.influencers) {
+        if (influencersRes.data.status && influencersRes.data.items?.influencers) {
           const transformedData = influencersRes.data.items.influencers.map((inf: ApiInfluencer) => ({
             id: inf.id,
             name_en: inf.name,
             name_ar: inf.name,
             profileImage: inf.avatar,
-            size: inf.category_size.name,
-            sizeId: inf.category_size.id,
-            type: inf.content_type.name,
-            typeId: inf.content_type.id,
+            size: inf.category_size?.name || '',
+            sizeId: inf.category_size?.id || 0,
+            type: inf.content_type?.name || '',
+            typeId: inf.content_type?.id || 0,
             gender: inf.sex,
-            socials: inf.social_media_accounts.map(account => ({
-              platform: account.platform.name.toLowerCase(),
-              followers: formatFollowers(account.follower_count),
-              icon: account.platform.icon
+            socials: (inf.social_media_accounts || []).map(account => ({
+              platform: account.platform?.name?.toLowerCase() || '',
+              followers: formatFollowers(account.follower_count || 0),
+              icon: account.platform?.icon || ''
             })),
-            totalFollowers: inf.total_followers
+            totalFollowers: inf.total_followers || 0
           }));
           setInfluencers(transformedData);
         }
@@ -271,9 +271,11 @@ const Influencers: React.FC = () => {
 
                     <div className="p-6 text-center w-full">
                       <h3 className="text-lg font-bold text-primary mb-1">{name}</h3>
-                      <span className="text-xs font-medium text-accent bg-blue-50 px-2 py-1 rounded mb-4 inline-block">
-                        {influencer.size}
-                      </span>
+                      {influencer.size && (
+                        <span className="text-xs text-gray-600 font-medium text-accent bg-blue-50 px-2 py-1 rounded mb-4 inline-block">
+                          {influencer.size}
+                        </span>
+                      )}
 
                       <div className="flex justify-center gap-4 mb-6">
                         {influencer.socials.map((social: any, idx: number) => {
