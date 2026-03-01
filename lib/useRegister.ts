@@ -70,6 +70,7 @@ export function useRegisterMutation() {
             fd.append("date_of_birth", values.date_of_birth);
             fd.append("accommodation", values.country);
             fd.append("nationality", values.nationality);
+            fd.append("country", values.nationality);
             fd.append("national_number", values.national_number);
             fd.append("is_his_account_verified", values.is_his_account_verified);
 
