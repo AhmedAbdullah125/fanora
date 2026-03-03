@@ -17,26 +17,40 @@ const Home: React.FC = () => {
             {/* Hero Section */}
             <section className="bg-hero-bg pt-40 pb-24 px-6 md:px-8 border-b border-border">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
-                    <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-border shadow-sm mb-4">
+                    <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-border shadow-sm">
                         <Sparkles size={14} className="text-primary fill-primary" />
-                        <span className="text-sm font-semibold text-primary uppercase tracking-wide">Influencer & Content Hub</span>
+                        <span className="text-sm font-semibold text-primary uppercase tracking-wide">{t('about.tagline')}</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-text tracking-tight ">
-                        {t('hero.title_start')} <br className="hidden md:block" />
-                        <span className="text-primary relative inline-block m-4">
-                            {t('hero.title_highlight')}
-                            <svg className="absolute w-full h-3 -bottom-1 left-0 text-accent-light -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-                            </svg>
-                        </span>
+                    {/* Title */}
+                    <h1 className="text-3xl md:text-5xl font-extrabold text-primary tracking-tight">
+                        {t('about.title')}
                     </h1>
 
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto font-normal leading-relaxed">
-                        {t('hero.subtitle')}
+                    {/* Platform description */}
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                        {t('about.platform_desc')}
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+                    {/* Transform highlight */}
+                    <div className="inline-flex items-center gap-3 bg-primary text-white rounded-2xl px-6 py-3 text-sm font-semibold shadow-lg mx-auto">
+                        <span>✦</span>
+                        <span>{t('about.transform_desc')}</span>
+                        <span>✦</span>
+                    </div>
+
+                    {/* 4 Services pills */}
+                    <div className="flex flex-wrap justify-center gap-3 pt-2">
+                        {(['service_1', 'service_2', 'service_3', 'service_4'] as const).map((key, i) => (
+                            <span key={key} className="flex items-center gap-2 bg-white border border-primary/20 text-gray-700 text-sm font-medium px-4 py-2 rounded-full shadow-sm">
+                                <span className="text-primary font-bold">{i + 1}</span>
+                                {t(`about.${key}`)}
+                            </span>
+                        ))}
+                    </div>
+
+                    {/* CTAs */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
                         <Link to="/influencers">
                             <Button size="lg" className="shadow-lg shadow-primary/20">
                                 {t('hero.btn_find_influencers')}
@@ -48,8 +62,10 @@ const Home: React.FC = () => {
                             </Button>
                         </Link>
                     </div>
+
                 </div>
             </section>
+
 
             {/* Services Section with Dotted Grid */}
             <section className="py-24 px-6 bg-dots relative">
