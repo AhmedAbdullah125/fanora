@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useData } from '../context/DataContext';
@@ -7,6 +7,7 @@ import { Filter, Instagram, Twitter, Youtube, Video } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { API_BASE_URL } from '@/lib/apiConfig';
 import { useGetLookups } from '../lib/useGetLookups';
+import { useInView } from '../hooks/useInView';
 
 interface ApiInfluencer {
   id: number;
@@ -49,6 +50,10 @@ const Influencers: React.FC = () => {
   const [selectedGender, setSelectedGender] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { t, language } = useLanguage();
+
+  const pageRef = useRef<HTMLDivElement>(null!);
+  useInView(pageRef, { threshold: 0.05 });
+
 
 
   // Helper function to format follower counts
@@ -154,8 +159,8 @@ const Influencers: React.FC = () => {
   }
 
   return (
-    <div className="pt-20">
-      <div className="bg-light-bg py-16 px-6 border-b border-border">
+    <div className="pt-20" ref={pageRef}>
+      <div className="bg-light-bg py-16 px-6 border-b border-border animate-on-scroll anim-fade-up anim-delay-0">
         <div className="container  mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <h1 className="text-3xl font-semibold text-primary">{t('nav.influencers')}</h1>
           <div className="md:hidden w-full">
@@ -169,7 +174,7 @@ const Influencers: React.FC = () => {
       <div className="container  mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
 
         {/* Filters Sidebar */}
-        <aside className={`md:w-64 flex-shrink-0 ${isFilterOpen ? 'block' : 'hidden md:block'}`}>
+        <aside className={`md:w-64 flex-shrink-0 animate-on-scroll anim-fade-up anim-delay-1 ${isFilterOpen ? 'block' : 'hidden md:block'}`}>
           <div className="sticky top-32 space-y-8">
             <div className="flex items-center justify-between pb-4 border-b border-border">
               <h3 className="font-semibold text-primary">{t('influencers_page.filters')}</h3>
@@ -254,12 +259,13 @@ const Influencers: React.FC = () => {
         <div className="flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {influencers.length > 0 ? (
-              influencers.map((influencer) => {
+              influencers.map((influencer, index) => {
                 const name = language === 'ar' ? influencer.name_ar : influencer.name_en;
                 const imgUrl = influencer.profileImage || siteImages.global.placeholderProfile;
+                const delayIndex = Math.min((index % 3) + 2, 6);
 
                 return (
-                  <GlassCard key={influencer.id} className="flex flex-col items-center p-0 overflow-hidden hoverEffect">
+                  <GlassCard key={influencer.id} className={`flex flex-col items-center p-0 overflow-hidden hoverEffect animate-on-scroll anim-scale-in anim-delay-${delayIndex}`}>
                     <div className="aspect-[3/2] w-full overflow-hidden border-b border-border bg-gray-100 relative rounded-t-lg">
                       <img
                         src={imgUrl}

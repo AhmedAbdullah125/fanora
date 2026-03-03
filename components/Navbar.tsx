@@ -51,8 +51,8 @@ const Navbar: React.FC = () => {
             <Link
               key={link.path}
               to={link.path}
-              className={`px-5 py-2.5 rounded-[48px] text-sm font-medium transition-all duration-300 ${isActive(link.path)
-                ? 'bg-primary text-white shadow-md'
+              className={`px-2 py-2.5 rounded-[48px] text-sm font-medium transition-all duration-300 ${isActive(link.path)
+                ? 'bg-primary px-5 text-white shadow-md'
                 : 'text-gray-600 hover:text-primary hover:bg-gray-50'
                 }`}
             >

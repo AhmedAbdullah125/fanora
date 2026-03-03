@@ -44,6 +44,96 @@ body {
     background-size: 32px 32px;
 }
 
+/* ─── Animation Keyframes ─── */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.93);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ─── Base animate class (hidden until triggered) ─── */
+.animate-on-scroll {
+    opacity: 0;
+}
+
+.animate-on-scroll.animated {
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── Variants ─── */
+.anim-fade-up.animated {
+    animation-name: fadeUp;
+    animation-duration: 0.65s;
+}
+
+.anim-fade-in.animated {
+    animation-name: fadeIn;
+    animation-duration: 0.55s;
+}
+
+.anim-scale-in.animated {
+    animation-name: scaleIn;
+    animation-duration: 0.6s;
+}
+
+/* ─── Stagger delays ─── */
+.anim-delay-0.animated {
+    animation-delay: 0ms;
+}
+
+.anim-delay-1.animated {
+    animation-delay: 80ms;
+}
+
+.anim-delay-2.animated {
+    animation-delay: 160ms;
+}
+
+.anim-delay-3.animated {
+    animation-delay: 240ms;
+}
+
+.anim-delay-4.animated {
+    animation-delay: 320ms;
+}
+
+.anim-delay-5.animated {
+    animation-delay: 400ms;
+}
+
+.anim-delay-6.animated {
+    animation-delay: 480ms;
+}
+
 @layer base {
     :root {
         --background: 0 0% 100%;
