@@ -20,6 +20,11 @@ body {
     gap: 10px !important;
 }
 
+.PhoneInput {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 ::-webkit-scrollbar-track {
     background: #F8F8F6;
 }

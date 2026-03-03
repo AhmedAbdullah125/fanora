@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "../components/ui/label";
 import { Textarea } from "../components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { RadioGroup, RadioGroupItem } from "../components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/GlassComponents";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,13 +40,10 @@ const INPUT_CLS = "h-12 bg-white/60 hover:bg-white/80 focus-visible:bg-white bor
 const profileSchema = z.object({
     name: z.string().trim().min(3, "الاسم لازم 3 أحرف على الأقل"),
     phone: z.string().trim().min(7, "رقم الهاتف غير صحيح"),
-    name_ar: z.string().trim().min(2, "الاسم بالعربي مطلوب"),
-    name_en: z.string().trim().min(2, "الاسم بالإنجليزي مطلوب"),
-    bio_ar: z.string().trim().optional(),
-    bio_en: z.string().trim().optional(),
+    bio: z.string().trim().optional(),
     sex: z.enum(["male", "female"]).optional(),
     date_of_birth: z.string().optional(),
-    country: z.string().optional(),
+    accommodation: z.string().optional(),
     nationality: z.string().optional(),
     national_number: z.string().optional(),
     is_his_account_verified: z.enum(["0", "1"]).optional(),
@@ -87,10 +85,9 @@ export default function ProfilePage() {
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileSchema),
         defaultValues: {
-            name: "", phone: "", name_ar: "", name_en: "",
-            bio_ar: "", bio_en: "", sex: undefined, date_of_birth: "",
-            country: "", nationality: "", national_number: "",
-            is_his_account_verified: undefined,
+            name: "", phone: "", bio: "",
+            sex: undefined, date_of_birth: "",
+            national_number: "", is_his_account_verified: undefined,
             content_type_id: "", category_size_id: "",
             instagram: "", snapchat: "", youtube: "", tiktok: "",
         },
@@ -100,36 +97,31 @@ export default function ProfilePage() {
     const { register, setValue, watch, reset, formState: { errors, isDirty } } = form;
     const dob = watch("date_of_birth");
 
-    // Populate form when data loads
+    // ── Populate form when data loads ─────────────────────────────────────────
     React.useEffect(() => {
         if (!profile) return;
         const inf = profile.influencer;
 
-        // Parse API date format DD-MM-YYYY → YYYY-MM-DD (calendar needs ISO)
-        const parseDobToISO = (raw: string | undefined): string => {
+        // Parse date: could be YYYY-MM-DD or DD-MM-YYYY
+        const parseDob = (raw: string | undefined): string => {
             if (!raw) return "";
-            // Try DD-MM-YYYY
             const ddmmyyyy = raw.match(/^(\d{2})-(\d{2})-(\d{4})$/);
             if (ddmmyyyy) return `${ddmmyyyy[3]}-${ddmmyyyy[2]}-${ddmmyyyy[1]}`;
-            return raw; // already ISO or unknown — pass through
+            return raw;
         };
 
-        const dob = parseDobToISO(inf?.date_of_birth);
+        const dob = parseDob(inf?.date_of_birth);
         const verified: "0" | "1" = inf?.is_his_account_verified === 1 ? "1" : "0";
         const categorySizeId = String(inf?.category_size?.id ?? "");
         const contentTypeId = String(inf?.content_type?.id ?? "");
 
-        // reset() handles text/textarea fields reliably
         reset({
             name: profile.name ?? "",
             phone: profile.phone ?? "",
-            name_ar: inf?.name ?? "",
-            name_en: inf?.name ?? "",
-            bio_ar: inf?.bio ?? "",
-            bio_en: inf?.bio ?? "",
+            bio: inf?.bio ?? "",
             sex: (inf?.sex as "male" | "female") ?? undefined,
             date_of_birth: dob,
-            country: inf?.accommodation ?? "",
+            accommodation: inf?.accommodation ?? "",
             nationality: inf?.nationality ?? "",
             national_number: inf?.national_number ?? "",
             is_his_account_verified: verified,
@@ -141,12 +133,10 @@ export default function ProfilePage() {
             tiktok: inf?.tiktok ?? "",
         });
 
-        // Explicit setValue for Radix controlled components (Select / Switch)
-        // These need a separate call because Radix reads value through a controlled
-        // pattern that doesn't always pick up reset() in one cycle.
+        // Radix controlled components need an explicit setValue after reset()
         setTimeout(() => {
             if (inf?.sex) setValue("sex", inf.sex as "male" | "female", { shouldDirty: false });
-            if (inf?.accommodation) setValue("country", inf.accommodation, { shouldDirty: false });
+            if (inf?.accommodation) setValue("accommodation", inf.accommodation, { shouldDirty: false });
             if (inf?.nationality) setValue("nationality", inf.nationality, { shouldDirty: false });
             setValue("is_his_account_verified", verified, { shouldDirty: false });
             if (contentTypeId) setValue("content_type_id", contentTypeId, { shouldDirty: false });
@@ -156,42 +146,26 @@ export default function ProfilePage() {
         if (inf?.avatar) setAvatarPreview(inf.avatar);
     }, [profile, reset, setValue]);
 
+    // ── Avatar picker ─────────────────────────────────────────────────────────
     async function onPickAvatar(file: File | null) {
         if (!file) {
             setValue("avatar", undefined as any, { shouldDirty: true });
             setAvatarPreview(profile?.influencer?.avatar ?? null);
             return;
         }
-
         try {
-            // Show initial preview for immediate feedback
             setAvatarPreview(URL.createObjectURL(file));
-
             const fd = new FormData();
             fd.append("image", file);
-
-            const res = await fetch("/api/optimize-image", {
-                method: "POST",
-                body: fd,
-            });
-
+            const res = await fetch("/api/optimize-image", { method: "POST", body: fd });
             if (!res.ok) throw new Error("Optimization failed");
-
             const blob = await res.blob();
-            const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", {
-                type: "image/webp",
-            });
-
+            const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".webp", { type: "image/webp" });
             setValue("avatar", optimizedFile as any, { shouldDirty: true });
-
-            // Cleanup old preview URL if needed
-            if (avatarPreview && avatarPreview.startsWith("blob:")) {
-                URL.revokeObjectURL(avatarPreview);
-            }
+            if (avatarPreview?.startsWith("blob:")) URL.revokeObjectURL(avatarPreview);
             setAvatarPreview(URL.createObjectURL(blob));
         } catch (err) {
             console.error("Image optimization failed:", err);
-            // Fallback to original file
             setValue("avatar", file as any, { shouldDirty: true });
         }
     }
@@ -209,8 +183,7 @@ export default function ProfilePage() {
         if (!authStore.get()) navigate("/login");
     }, [navigate]);
 
-    // ── Loading / Error states ────────────────────────────────────────────────
-
+    // ── Loading / Error ───────────────────────────────────────────────────────
     if (isLoading) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-hero-bg bg-dots">
@@ -241,9 +214,7 @@ export default function ProfilePage() {
                     <div className="flex items-center justify-between">
                         <CardTitle className="text-2xl font-bold text-primary">{t("profile_page.title")}</CardTitle>
                         <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
+                            type="button" variant="ghost" size="sm"
                             className="text-destructive hover:bg-destructive/10 hover:text-destructive flex items-center gap-2"
                             onClick={() => setShowLogoutConfirm(true)}
                         >
@@ -251,9 +222,7 @@ export default function ProfilePage() {
                             <span className="hidden sm:inline">{t("profile_page.btn_logout")}</span>
                         </Button>
                     </div>
-                    <p className="text-sm text-gray-600">
-                        {t("profile_page.subtitle")}
-                    </p>
+                    <p className="text-sm text-gray-600">{t("profile_page.subtitle")}</p>
                 </CardHeader>
 
                 <CardContent className="pt-6">
@@ -303,7 +272,7 @@ export default function ProfilePage() {
                         {/* phone */}
                         <div className="space-y-2">
                             <Label htmlFor="p_phone">{t("register_page.phone_label")}</Label>
-                            <div dir="ltr" className={`${INPUT_CLS} flex items-center rounded-md px-0 overflow-hidden [&_.PhoneInputCountry]:pr-2 [&_.PhoneInputCountry]:pl-3 [&_.PhoneInputInput]:h-full [&_.PhoneInputInput]:flex-1 [&_.PhoneInputInput]:bg-transparent [&_.PhoneInputInput]:px-3 [&_.PhoneInputInput]:text-sm [&_.PhoneInputInput]:outline-none [&_.PhoneInputInput]:border-0`}>
+                            <div dir="ltr" className={`${INPUT_CLS} flex items-center rounded-md px-0 overflow-hidden [&_.PhoneInputCountry]:pr-2 [&_.PhoneInputCountry]:pl-3 [&_.PhoneInputCountry]:border-l-0 [&_.PhoneInputInput]:h-full [&_.PhoneInputInput]:flex-1 [&_.PhoneInputInput]:bg-transparent [&_.PhoneInputInput]:px-3 [&_.PhoneInputInput]:text-sm [&_.PhoneInputInput]:outline-none [&_.PhoneInputInput]:border-0`}>
                                 <PhoneInput
                                     international
                                     defaultCountry="KW"
@@ -315,33 +284,6 @@ export default function ProfilePage() {
                             {errors.phone && <p className="text-sm text-destructive">{errors.phone.message}</p>}
                         </div>
 
-                        {/* ── Section: Profile Info ── */}
-                        <div className="md:col-span-2 mt-2">
-                            <p className="text-base font-semibold text-primary border-b border-border/40 pb-2 mb-1">{t("register_page.section_profile")}</p>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="p_name_ar">{t("register_page.name_ar_label")}</Label>
-                            <Input id="p_name_ar" className={INPUT_CLS} {...register("name_ar")} />
-                            {errors.name_ar && <p className="text-sm text-destructive">{errors.name_ar.message}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="p_name_en">{t("register_page.name_en_label")}</Label>
-                            <Input id="p_name_en" className={INPUT_CLS} dir="ltr" {...register("name_en")} />
-                            {errors.name_en && <p className="text-sm text-destructive">{errors.name_en.message}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="p_bio_ar">{t("register_page.bio_ar_label")}</Label>
-                            <Textarea id="p_bio_ar" className="bg-white/60 hover:bg-white/80 focus-visible:bg-white border-border/50 backdrop-blur-sm transition-all shadow-sm min-h-[80px]" {...register("bio_ar")} />
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="p_bio_en">{t("register_page.bio_en_label")}</Label>
-                            <Textarea id="p_bio_en" className="bg-white/60 hover:bg-white/80 focus-visible:bg-white border-border/50 backdrop-blur-sm transition-all shadow-sm min-h-[80px]" dir="ltr" {...register("bio_en")} />
-                        </div>
-
                         {/* ── Section: Personal ── */}
                         <div className="md:col-span-2 mt-2">
                             <p className="text-base font-semibold text-primary border-b border-border/40 pb-2 mb-1">{t("register_page.section_personal")}</p>
@@ -350,15 +292,20 @@ export default function ProfilePage() {
                         {/* sex */}
                         <div className="space-y-2">
                             <Label>{t("register_page.sex_label")}</Label>
-                            <Select value={watch("sex") || ""} onValueChange={(v) => setValue("sex", v as any, { shouldValidate: true, shouldDirty: true })}>
-                                <SelectTrigger className={INPUT_CLS}>
-                                    <SelectValue placeholder={t("profile_page.select_placeholder")} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="male">{t("register_page.male")}</SelectItem>
-                                    <SelectItem value="female">{t("register_page.female")}</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <RadioGroup
+                                value={watch("sex") || ""}
+                                onValueChange={(v) => setValue("sex", v as any, { shouldValidate: true, shouldDirty: true })}
+                                className="flex gap-6 pt-1"
+                            >
+                                <div className="flex items-center gap-2">
+                                    <RadioGroupItem id="p_male" value="male" />
+                                    <Label htmlFor="p_male">{t("register_page.male")}</Label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <RadioGroupItem id="p_female" value="female" />
+                                    <Label htmlFor="p_female">{t("register_page.female")}</Label>
+                                </div>
+                            </RadioGroup>
                         </div>
 
                         {/* date_of_birth */}
@@ -398,12 +345,13 @@ export default function ProfilePage() {
                             <input type="hidden" {...register("date_of_birth")} />
                         </div>
 
-                        {/* nationality */}
+
+                        {/* accommodation */}
                         <div className="space-y-2">
-                            <Label>{t("register_page.nationality_label")}</Label>
-                            <Select value={watch("nationality") || ""} onValueChange={(v) => setValue("nationality", v, { shouldValidate: true, shouldDirty: true })}>
+                            <Label>{t("register_page.accommodation_label")}</Label>
+                            <Select value={watch("accommodation") || ""} onValueChange={(v) => setValue("accommodation", v, { shouldValidate: true, shouldDirty: true })}>
                                 <SelectTrigger className={INPUT_CLS}>
-                                    <SelectValue placeholder={t("register_page.nationality_placeholder")} />
+                                    <SelectValue placeholder={t("register_page.accommodation_placeholder")} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {countryOptions.map((c) => (
@@ -413,10 +361,10 @@ export default function ProfilePage() {
                             </Select>
                         </div>
 
-                        {/* country */}
+                        {/* nationality */}
                         <div className="space-y-2">
                             <Label>{t("register_page.country_label")}</Label>
-                            <Select value={watch("country") || ""} onValueChange={(v) => setValue("country", v, { shouldValidate: true, shouldDirty: true })}>
+                            <Select value={watch("nationality") || ""} onValueChange={(v) => setValue("nationality", v, { shouldValidate: true, shouldDirty: true })}>
                                 <SelectTrigger className={INPUT_CLS}>
                                     <SelectValue placeholder={t("register_page.country_placeholder")} />
                                 </SelectTrigger>
@@ -433,6 +381,16 @@ export default function ProfilePage() {
                             <Label htmlFor="p_national">{t("register_page.national_id_label")}</Label>
                             <Input id="p_national" className={INPUT_CLS} {...register("national_number")} />
                             <p className="text-xs text-muted-foreground">{t("profile_page.national_id_desc")}</p>
+                        </div>
+
+                        {/* bio */}
+                        <div className="md:col-span-2 space-y-2">
+                            <Label htmlFor="p_bio">{t("register_page.bio_label")}</Label>
+                            <Textarea id="p_bio"
+                                className="bg-white/60 hover:bg-white/80 focus-visible:bg-white border-border/50 backdrop-blur-sm transition-all shadow-sm min-h-[80px]"
+                                placeholder={lang === "ar" ? "نبذة مختصرة عنك..." : "Short bio about you..."}
+                                {...register("bio")}
+                            />
                         </div>
 
                         {/* is_his_account_verified */}
@@ -542,22 +500,12 @@ export default function ProfilePage() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="space-y-6">
-                            <p className="text-gray-600 text-sm">
-                                {t("profile_page.logout_confirm_desc")}
-                            </p>
+                            <p className="text-gray-600 text-sm">{t("profile_page.logout_confirm_desc")}</p>
                             <div className="flex flex-col sm:flex-row gap-3">
-                                <Button
-                                    variant="outline"
-                                    className="flex-1"
-                                    onClick={() => setShowLogoutConfirm(false)}
-                                >
+                                <Button variant="outline" className="flex-1" onClick={() => setShowLogoutConfirm(false)}>
                                     {t("profile_page.logout_confirm_cancel")}
                                 </Button>
-                                <Button
-                                    variant="destructive"
-                                    className="flex-1"
-                                    onClick={handleLogout}
-                                >
+                                <Button variant="destructive" className="flex-1" onClick={handleLogout}>
                                     {t("profile_page.logout_confirm_ok")}
                                 </Button>
                             </div>

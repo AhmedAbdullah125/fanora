@@ -22,18 +22,13 @@ export const registerSchema = z.object({
     // Avatar
     avatar: z.any(),
 
-    // Translations
-    name_ar: z.string().trim().min(2, "الاسم بالعربي مطلوب"),
-    bio_ar: z.string().trim().min(10, "النبذة بالعربي مطلوبة (10 أحرف على الأقل)"),
-    name_en: z.string().trim().min(2, "الاسم بالإنجليزي مطلوب"),
-    bio_en: z.string().trim().min(10, "النبذة بالإنجليزي مطلوبة (10 أحرف على الأقل)"),
-
     // Personal info
     sex: z.enum(["male", "female"], { error: "اختر الجنس" }),
     date_of_birth: z.string().min(1, "تاريخ الميلاد مطلوب"),
-    country: z.string().length(2, "اختر الدولة"),  // ISO 2-letter code e.g. KW, EG
-    nationality: z.string().length(2, "اختر الجنسية"),
+    country: z.string().length(2, "اختر الدولة"),          // ISO 2-letter code e.g. KW, EG
+    accommodation: z.string().length(2, "اختر مكان الإقامة"),  // ISO 2-letter code
     national_number: z.string().trim().min(6, "الرقم المدني لازم 6 أحرف على الأقل"),
+    bio: z.string().trim().optional(),
     is_his_account_verified: z.enum(["0", "1"], { error: "اختر حالة التوثيق" }),
 
     // Content classification

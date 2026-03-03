@@ -19,8 +19,9 @@ export type Influencer = {
     sex: "male" | "female" | string;
     date_of_birth: string;
     national_number: string;
-    accommodation: string;
-    nationality: string;
+    country: string | null;
+    accommodation: string | null;
+    nationality: string | null;
     is_his_account_verified: number;
     instagram: string | null;
     tiktok: string | null;
@@ -95,13 +96,11 @@ export type UpdateProfilePayload = {
     name?: string;
     phone?: string;
     avatar?: File | null;
-    name_ar?: string;
-    name_en?: string;
-    bio_ar?: string;
-    bio_en?: string;
+    bio?: string;
     sex?: string;
     date_of_birth?: string;
     country?: string;
+    accommodation?: string;
     nationality?: string;
     national_number?: string;
     is_his_account_verified?: string;
@@ -113,6 +112,7 @@ export type UpdateProfilePayload = {
     tiktok?: string;
 };
 
+
 export function useUpdateProfile() {
     const qc = useQueryClient();
 
@@ -122,11 +122,9 @@ export function useUpdateProfile() {
 
             (Object.keys(payload) as (keyof UpdateProfilePayload)[]).forEach((key) => {
                 const val = payload[key];
-                if (val === undefined || val === null) return;
+                if (val === undefined || val === null || val === "") return;
                 if (key === "avatar" && val instanceof File) {
                     fd.append("avatar", val);
-                } else if (key === "country") {
-                    fd.append("accommodation", val as string);
                 } else if (key !== "avatar") {
                     fd.append(key as string, val as string);
                 }

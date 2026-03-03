@@ -57,13 +57,12 @@ export default function RegisterPage() {
         defaultValues: {
             name: "", phone: "", email: "", password: "",
             avatar: undefined,
-            name_ar: "", bio_ar: "",
-            name_en: "", bio_en: "",
             sex: undefined as any,
             date_of_birth: "",
             country: "",
-            nationality: "",
+            accommodation: "",
             national_number: "",
+            bio: "",
             is_his_account_verified: undefined as any,
             content_type_id: "",
             category_size_id: "",
@@ -233,36 +232,6 @@ export default function RegisterPage() {
                             {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
                         </div>
 
-                        {/* ── Section: Profile Info ── */}
-                        <div className="md:col-span-2 mt-2">
-                            <p className="text-base font-semibold text-primary border-b border-border/40 pb-2 mb-1">{t("register_page.section_profile")}</p>
-                        </div>
-
-                        {/* name_ar / name_en */}
-                        <div className="space-y-2">
-                            <Label htmlFor="name_ar">{t("register_page.name_ar_label")}</Label>
-                            <Input id="name_ar" className={INPUT_CLS} placeholder={lang === "ar" ? "اسمك كما يُعرض للجمهور" : "Your display name"} {...register("name_ar")} />
-                            {errors.name_ar && <p className="text-sm text-destructive">{errors.name_ar.message}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="name_en">{t("register_page.name_en_label")}</Label>
-                            <Input id="name_en" className={INPUT_CLS} placeholder="Display name in English" dir="ltr" {...register("name_en")} />
-                            {errors.name_en && <p className="text-sm text-destructive">{errors.name_en.message}</p>}
-                        </div>
-
-                        {/* bio_ar / bio_en */}
-                        <div className="space-y-2">
-                            <Label htmlFor="bio_ar">{t("register_page.bio_ar_label")}</Label>
-                            <Textarea id="bio_ar" className="bg-white/60 hover:bg-white/80 focus-visible:bg-white border-border/50 backdrop-blur-sm transition-all shadow-sm min-h-[80px]" placeholder={lang === "ar" ? "نبذة مختصرة عنك..." : "Short bio about you..."} {...register("bio_ar")} />
-                            {errors.bio_ar && <p className="text-sm text-destructive">{errors.bio_ar.message}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="bio_en">{t("register_page.bio_en_label")}</Label>
-                            <Textarea id="bio_en" className="bg-white/60 hover:bg-white/80 focus-visible:bg-white border-border/50 backdrop-blur-sm transition-all shadow-sm min-h-[80px]" placeholder="Short bio in English..." dir="ltr" {...register("bio_en")} />
-                            {errors.bio_en && <p className="text-sm text-destructive">{errors.bio_en.message}</p>}
-                        </div>
 
 
                         {/* ── Section: Personal Info ── */}
@@ -329,28 +298,13 @@ export default function RegisterPage() {
                             {errors.date_of_birth && <p className="text-sm text-destructive">{errors.date_of_birth.message}</p>}
                         </div>
 
-                        {/* nationality */}
-                        <div className="space-y-2">
-                            <Label>{t("register_page.nationality_label")}</Label>
-                            <Select value={watch("nationality") || ""} onValueChange={(v) => setValue("nationality", v, { shouldValidate: true })}>
-                                <SelectTrigger className={INPUT_CLS}>
-                                    <SelectValue placeholder={t("register_page.nationality_placeholder")} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {countryOptions.map((c) => (
-                                        <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                            {errors.nationality && <p className="text-sm text-destructive">{errors.nationality.message}</p>}
-                        </div>
 
                         {/* country */}
                         <div className="space-y-2">
-                            <Label>{t("register_page.country_label")}</Label>
+                            <Label>{t("register_page.nationality_label")}</Label>
                             <Select value={watch("country") || ""} onValueChange={(v) => setValue("country", v, { shouldValidate: true })}>
                                 <SelectTrigger className={INPUT_CLS}>
-                                    <SelectValue placeholder={t("register_page.country_placeholder")} />
+                                    <SelectValue placeholder={t("register_page.nationality_placeholder")} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     {countryOptions.map((c) => (
@@ -361,12 +315,37 @@ export default function RegisterPage() {
                             {errors.country && <p className="text-sm text-destructive">{errors.country.message}</p>}
                         </div>
 
+                        {/* accommodation */}
+                        <div className="space-y-2">
+                            <Label>{t("register_page.country_label")}</Label>
+                            <Select value={watch("accommodation") || ""} onValueChange={(v) => setValue("accommodation", v, { shouldValidate: true })}>
+                                <SelectTrigger className={INPUT_CLS}>
+                                    <SelectValue placeholder={t("register_page.accommodation_placeholder")} />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {countryOptions.map((c) => (
+                                        <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            {errors.accommodation && <p className="text-sm text-destructive">{errors.accommodation.message}</p>}
+                        </div>
+
+
+
                         {/* national_number */}
                         <div className="space-y-2">
                             <Label htmlFor="national_number">{t("register_page.national_id_label")}</Label>
                             <Input id="national_number" className={INPUT_CLS} placeholder={lang === "ar" ? "اكتب الرقم" : "Type ID number"} {...register("national_number")} />
                             <p className="text-xs text-muted-foreground">{t("register_page.national_id_hint")}</p>
                             {errors.national_number && <p className="text-sm text-destructive">{errors.national_number.message}</p>}
+                        </div>
+
+                        {/* bio */}
+                        <div className="md:col-span-2 space-y-2">
+                            <Label htmlFor="bio">{t("register_page.bio_label")}</Label>
+                            <Textarea id="bio" className="bg-white/60 hover:bg-white/80 focus-visible:bg-white border-border/50 backdrop-blur-sm transition-all shadow-sm min-h-[80px]" placeholder={lang === "ar" ? "نبذة مختصرة عنك..." : "Short bio about you..."} {...register("bio")} />
+                            {errors.bio && <p className="text-sm text-destructive">{errors.bio.message}</p>}
                         </div>
 
                         {/* is_his_account_verified */}

@@ -59,19 +59,14 @@ export function useRegisterMutation() {
                 fd.append("avatar", values.avatar);
             }
 
-            // Translations
-            fd.append("name_te[ar]", values.name_ar);
-            fd.append("bio_te[ar]", values.bio_ar);
-            fd.append("name_te[en]", values.name_en);
-            fd.append("bio_te[en]", values.bio_en);
-
             // Personal info
             fd.append("sex", values.sex);
             fd.append("date_of_birth", values.date_of_birth);
-            fd.append("accommodation", values.country);
-            fd.append("nationality", values.nationality);
-            fd.append("country", values.nationality);
+            fd.append("country", values.country);
+            fd.append("accommodation", values.accommodation);
+            fd.append("nationality", values.country);
             fd.append("national_number", values.national_number);
+            if (values.bio) fd.append("bio", values.bio);
             fd.append("is_his_account_verified", values.is_his_account_verified);
 
             // Content classification
