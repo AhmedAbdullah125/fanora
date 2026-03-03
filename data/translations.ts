@@ -129,15 +129,17 @@ export const translations = {
     },
 
     about: {
-      title: "About Kani",
-      who_we_are: "Who We Are",
-      desc:
-        "Inspired by the traditional Kuwaiti lantern 'Fanar'—a symbol of light—Kani was founded to become a beacon of creativity and influence in the world of marketing and advertising.\n\nWe believe that true impact begins with a powerful idea (Matter), is brought to life through stunning visuals (Visual), and is completed with an unforgettable shine (Luster).\n\nWe are not just an advertising agency; we are a strategic partner that connects brands with their audiences through three core pillars: content creation, photography, and influencer marketing.",
-
+      title: "KANI",
+      tagline: "The Global System for Tourism Influence Management",
+      platform_desc: "A Kuwaiti global platform specialized in tourism marketing management through celebrities, influencers, and content creators, powered by a professional system built on measurement, analysis, and sustainability.",
+      transform_desc: "We transform tourism campaigns from random initiatives into a scalable, measurable strategic system.",
+      service_1: "Certified Management of Celebrities, Influencers, and Content Creators",
+      service_2: "Strategically Designed Seasonal Campaigns",
+      service_3: "Real Performance Measurement",
+      service_4: "Decision-Maker Reporting",
       mission_title: "Our Mission",
       mission_desc:
-        "At Kani, our mission is to empower influencers and content creators while connecting them with brands through professional management, creative content, and smart marketing solutions that ensure impact, credibility, and long-term success—while preserving each influencer’s unique identity and artistic value.",
-
+        "At Kani, our mission is to empower influencers and content creators while connecting them with brands through professional management, creative content, and smart marketing solutions that ensure impact, credibility, and long-term success—while preserving each influencer's unique identity and artistic value.",
       vision_title: "Our Vision",
       vision_desc:
         "To become the leading platform for influencer content creation and marketing in the Arab world by delivering authentic, impactful, and value-driven advertising experiences that connect brands with their audiences in a genuine and professional way.",
@@ -358,15 +360,15 @@ export const translations = {
       }
     },
     about: {
-      title: 'عن Kani',
-      who_we_are: 'من نحن',
-      desc: `
-مستوحاة من كلمة “فنر”، مصدر الضوء الكويتي التقليدي ، تأسست Kani لتكون منارة للإبداع والتأثير في عالم التسويق والإعلان ، نؤمن أن الضوء الحقيقي يبدأ من فكرة قوية (Matter)، تكتمل بـ صورة مبهرة (Visual)، وتُختَتم بـ بريق لا يُنسى (Luster).
-
-احنا مو بس شركة إعلان ، بل راح نكون شريك استراتيجي يربط العلامات التجارية بجمهورها من خلال ثلاث مفاتيح : صناعة المحتوى ، التصوير ، والتسويق عبر المشاهير.
-`,
-
-      mission_title: 'رسالة Kani ',
+      title: 'كاني | KANI',
+      tagline: 'نظام إدارة التأثير السياحي عالمياً',
+      platform_desc: 'منصة كويتية عالمية متخصصة في إدارة التسويق السياحي عبر المشاهير والمؤثرين وصناع المحتوى، من خلال منظومة احترافية قائمة على القياس والتحليل والاستدامة.',
+      transform_desc: 'نحوّل الحملات السياحية من مبادرات عشوائية إلى نظام استراتيجي قابل للقياس والتوسع.',
+      service_1: 'إدارة المشاهير والمؤثرين وصناع محتوى معتمدة',
+      service_2: 'حملات موسمية مدروسة',
+      service_3: 'قياس أداء حقيقي',
+      service_4: 'تقارير لصنّاع القرار',
+      mission_title: 'رسالة Kani',
       mission_desc: "في Kani نعمل على تمكين المشاهير وصناع المحتوى، وربطهم بالعلامات التجارية من خلال إدارة احترافية، محتوى إبداعي، وحلول تسويقية ذكية تضمن التأثير، المصداقية، والنتائج المستدامة، مع الحفاظ على هوية كل مشهور وقيمته الفنية.",
       vision_title: 'رؤية Kani',
       vision_desc: "أن تكون Kani المنصة الرائدة في صناعة وتسويق محتوى المشاهير في العالم العربي ، عبر تقديم تجارب إعلانية إنسانية ، مؤثرة ، وذات قيمة حقيقية تربط العلامات التجارية بجمهورها بصدق واحترافية."
