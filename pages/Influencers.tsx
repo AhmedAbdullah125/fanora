@@ -8,6 +8,12 @@ import { useLanguage } from '../context/LanguageContext';
 import { API_BASE_URL } from '@/lib/apiConfig';
 import { useGetLookups } from '../lib/useGetLookups';
 import { useInView } from '../hooks/useInView';
+import countries from "i18n-iso-countries";
+import arLocale from "i18n-iso-countries/langs/ar.json";
+import enLocale from "i18n-iso-countries/langs/en.json";
+
+countries.registerLocale(arLocale);
+countries.registerLocale(enLocale);
 
 interface ApiInfluencer {
   id: number;
@@ -48,8 +54,16 @@ const Influencers: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState<string>('');
   const [selectedType, setSelectedType] = useState<string>('');
   const [selectedGender, setSelectedGender] = useState<string>('');
+  const [selectedCountry, setSelectedCountry] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { t, language } = useLanguage();
+
+  const countryOptions = React.useMemo(() => {
+    const obj = countries.getNames(language === "ar" ? "ar" : "en", { select: "official" });
+    return Object.entries(obj)
+      .map(([code, name]) => ({ code, name }))
+      .sort((a, b) => a.name.localeCompare(b.name, language === "ar" ? "ar" : "en"));
+  }, [language]);
 
   const pageRef = useRef<HTMLDivElement>(null!);
   useInView(pageRef, { threshold: 0.05 });
@@ -82,6 +96,9 @@ const Influencers: React.FC = () => {
         }
         if (selectedGender) {
           formData.append('sex', selectedGender);
+        }
+        if (selectedCountry) {
+          formData.append('country', selectedCountry);
         }
 
         const influencersRes = await axios.post(`${API_BASE_URL}/influencers`, formData, {
@@ -124,7 +141,7 @@ const Influencers: React.FC = () => {
     };
 
     fetchInfluencers();
-  }, [selectedSize, selectedType, selectedGender]);
+  }, [selectedSize, selectedType, selectedGender, selectedCountry]);
 
   const socialIconMap: Record<string, any> = {
     instagram: Instagram,
@@ -178,9 +195,9 @@ const Influencers: React.FC = () => {
           <div className="sticky top-32 space-y-8">
             <div className="flex items-center justify-between pb-4 border-b border-border">
               <h3 className="font-semibold text-primary">{t('influencers_page.filters')}</h3>
-              {(selectedSize || selectedType || selectedGender) && (
+              {(selectedSize || selectedType || selectedGender || selectedCountry) && (
                 <button
-                  onClick={() => { setSelectedSize(''); setSelectedType(''); setSelectedGender(''); }}
+                  onClick={() => { setSelectedSize(''); setSelectedType(''); setSelectedGender(''); setSelectedCountry(''); }}
                   className="text-xs font-medium text-accent hover:underline"
                 >
                   {t('influencers_page.reset')}
@@ -251,6 +268,25 @@ const Influencers: React.FC = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Country Filter */}
+              <div>
+                <label className="block text-xs uppercase tracking-wider font-semibold text-gray-600 mb-3">
+                  {t('register_page.country_label')}
+                </label>
+                <div className="space-y-2">
+                  <select
+                    value={selectedCountry}
+                    onChange={(e) => setSelectedCountry(e.target.value)}
+                    className="w-full text-sm h-10 border-gray-300 rounded-2xl shadow-sm focus:border-primary focus:ring-primary p-2 border bg-white"
+                  >
+                    <option value="">{language === 'ar' ? 'كل الدول' : 'All Countries'}</option>
+                    {countryOptions.map((c) => (
+                      <option key={c.code} value={c.code}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         </aside>
@@ -309,7 +345,7 @@ const Influencers: React.FC = () => {
                 <h3 className="text-lg font-semibold text-gray-600 mb-2">{t('influencers_page.no_results')}</h3>
                 <button
                   className="text-accent hover:underline text-sm font-medium"
-                  onClick={() => { setSelectedSize(''); setSelectedType(''); setSelectedGender(''); }}
+                  onClick={() => { setSelectedSize(''); setSelectedType(''); setSelectedGender(''); setSelectedCountry(''); }}
                 >
                   {t('influencers_page.clear_filters')}
                 </button>
