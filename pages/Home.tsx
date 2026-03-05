@@ -37,10 +37,10 @@ const Home: React.FC = () => {
     useInView(servicesRef, { threshold: 0.08 });
 
     return (
-        <div className="min-h-screen flex flex-col font-sans">
+        <div className=" flex flex-col font-sans">
 
             {/* Hero Section */}
-            <section ref={heroRef} className="bg-hero-bg pt-40 pb-24 px-6 md:px-8 border-b border-border">
+            <section ref={heroRef} className="bg-hexro-bg pt-40 pb-24 px-6 md:px-8 border-b border-border">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
 
                     {/* Tagline badge */}
@@ -95,10 +95,8 @@ const Home: React.FC = () => {
 
 
             {/* Services Section with Dotted Grid */}
-            <section ref={servicesRef} className="py-24 px-6 bg-dots relative">
+            {/* <section ref={servicesRef} className="py-24 px-6 bg-dots relative">
                 <div className="container mx-auto relative z-10">
-
-                    {/* Section Header */}
                     <div className="text-center mb-16 space-y-4">
                         <div className="animate-on-scroll anim-fade-up anim-delay-0 inline-flex items-center gap-2 bg-white border border-border px-5 py-2 rounded-full shadow-sm">
                             <Star size={16} className="text-primary fill-primary" />
@@ -107,18 +105,14 @@ const Home: React.FC = () => {
                         <h2 className="animate-on-scroll anim-fade-up anim-delay-1 text-4xl md:text-5xl font-extrabold text-text">What We Offer</h2>
                     </div>
 
-                    {/* Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                        {/* Marketing Card */}
                         <div className="animate-on-scroll anim-scale-in anim-delay-2">
                             <Link to="/services/marketing" className="group block h-full">
                                 <GlassCard className="h-full flex flex-col p-0 hoverEffect bg-white" hoverEffect>
-                                    {/* Top Image - Rounded Top Only */}
                                     <div className="aspect-[3/2] w-full overflow-hidden border-b border-border bg-gray-100 relative rounded-t-lg">
                                         <img src={siteImages.services.marketingBg} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Marketing" />
 
-                                        {/* Floating Badges */}
                                         <div className="absolute top-4 left-4 bg-white p-2.5 rounded-2xl border border-border shadow-sm text-primary">
                                             <PenTool size={20} />
                                         </div>
@@ -141,7 +135,6 @@ const Home: React.FC = () => {
                             </Link>
                         </div>
 
-                        {/* Studio Card */}
                         <div className="animate-on-scroll anim-scale-in anim-delay-3">
                             <Link to="/services/studio" className="group block h-full">
                                 <GlassCard className="h-full flex flex-col p-0 hoverEffect bg-white" hoverEffect>
@@ -165,7 +158,6 @@ const Home: React.FC = () => {
                             </Link>
                         </div>
 
-                        {/* Influencer Card */}
                         <div className="animate-on-scroll anim-scale-in anim-delay-4">
                             <Link to="/influencers" className="group block h-full">
                                 <GlassCard className="h-full flex flex-col p-0 hoverEffect bg-white" hoverEffect>
@@ -195,7 +187,7 @@ const Home: React.FC = () => {
 
                     </div>
                 </div>
-            </section>
+            </section> */}
 
         </div>
     );
