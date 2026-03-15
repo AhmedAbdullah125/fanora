@@ -55,7 +55,7 @@ export const HeroSection: React.FC = () => {
                             {t('hero.btn_find_influencers')}
                         </Button>
                     </Link>
-                    <Link to="/services">
+                    <Link to="/about">
                         <Button variant="outline" className="bg-white lg:p-4 p-2">
                             {t('hero.btn_explore_services')}
                         </Button>

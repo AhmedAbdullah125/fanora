@@ -14,7 +14,7 @@ const About: React.FC = () => {
   useInView(pageRef, { threshold: 0.1 });
 
   return (
-    <div className="pt-20 overflow-hidden" ref={pageRef}>
+    <div className="overflow-hidden" ref={pageRef}>
 
       {/* ── Hero Banner ── */}
       <div className="relative bg-gradient-to-br from-primary/10 via-white to-primary/5 py-24 px-6">
