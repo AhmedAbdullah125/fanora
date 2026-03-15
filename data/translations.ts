@@ -267,7 +267,7 @@ export const translations = {
       title_highlight: 'حضورك الرقمي',
       subtitle: 'كاني هي بوابتك لتسويق المؤثرين المتميز، التصوير الفوتوغرافي الراقي، وإنتاج المحتوى الإبداعي.',
       btn_find_influencers: 'ابحث عن مؤثرين',
-      btn_explore_services: 'استكشف خدماتنا',
+      btn_explore_services: ' عن كاني',
     },
     services: {
       title: 'خدماتنا – Kani',

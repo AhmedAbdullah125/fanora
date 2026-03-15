@@ -49,14 +49,14 @@ export const HeroSection: React.FC = () => {
                 </div>
 
                 {/* CTAs */}
-                <div className="animate-on-scroll anim-fade-up anim-delay-5 flex flex-col sm:flex-row gap-4 justify-center pt-2">
+                <div className="animate-on-scroll anim-fade-up anim-delay-5 flex gap-2  lg:gap-4 justify-center pt-2 ">
                     <Link to="/influencers">
-                        <Button size="lg" className="shadow-lg shadow-primary/20">
+                        <Button className="shadow-lg shadow-primary/20 lg:p-4 p-2">
                             {t('hero.btn_find_influencers')}
                         </Button>
                     </Link>
                     <Link to="/services">
-                        <Button variant="outline" size="lg" className="bg-white">
+                        <Button variant="outline" className="bg-white lg:p-4 p-2">
                             {t('hero.btn_explore_services')}
                         </Button>
                     </Link>

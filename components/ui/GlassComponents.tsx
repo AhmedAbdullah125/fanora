@@ -28,23 +28,23 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export const Button: React.FC<ButtonProps> = ({ 
-  children, 
-  variant = 'primary', 
-  fullWidth = false, 
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = 'primary',
+  fullWidth = false,
   size = 'md',
-  className = '', 
-  ...props 
+  className = '',
+  ...props
 }) => {
-  
+
   const sizeStyles = {
-    sm: "px-4 py-2 text-sm",
+    sm: "px-2 py-2 text-sm",
     md: "px-6 py-3 text-base",
     lg: "px-8 py-4 text-lg"
   };
 
-  const baseStyles = "rounded-full font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]";
-  
+  const baseStyles = " rounded-full font-semibold transition-all duration-200 flex items-center justify-center gap-2 active:scale-[0.98]";
+
   const variants = {
     primary: "bg-primary text-white hover:bg-primary-hover shadow-md",
     secondary: "bg-accent-light text-primary hover:bg-green-100",

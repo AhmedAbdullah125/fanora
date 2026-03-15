@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Twitter, Linkedin, Facebook } from 'lucide-react';
+import { Instagram, Linkedin } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useData } from '../context/DataContext';
 import logo from '@/public/newLogo.png';
@@ -43,7 +43,11 @@ const Footer: React.FC = () => {
               <h4 className="font-bold text-text mb-6 text-sm uppercase tracking-wider">{t('footer.connect')}</h4>
               <div className="flex gap-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-tag-bg flex items-center justify-center text-text hover:bg-primary hover:text-white transition-all"><Instagram size={18} /></a>
-                <a href="#" className="w-10 h-10 rounded-full bg-tag-bg flex items-center justify-center text-text hover:bg-primary hover:text-white transition-all"><Twitter size={18} /></a>
+                <a href="#" className="w-10 h-10 rounded-full bg-tag-bg flex items-center justify-center text-text hover:bg-primary hover:text-white transition-all">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
                 <a href="#" className="w-10 h-10 rounded-full bg-tag-bg flex items-center justify-center text-text hover:bg-primary hover:text-white transition-all"><Linkedin size={18} /></a>
               </div>
             </div>
